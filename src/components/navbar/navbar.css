@@ -1,0 +1,13 @@
+.nav-logo {
+    text-decoration: none;
+}
+
+.nav-search-container {
+    background-color: var(--LIGHT-GREY);
+    border: 1px solid var(--LIGHT-GREY);
+}
+
+.grand-nav-absolute {
+    position: fixed;
+    z-index: 3;
+}

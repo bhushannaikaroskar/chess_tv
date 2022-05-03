@@ -1,0 +1,97 @@
+@import url(https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round);
+@import url(https://grand-ui.netlify.app/components/components.css);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --COLOR-BLACK-ALPHA-2: #00000044;
+    --COLOR-BLACK-ALPHA-3: #00000088;
+}
+
+:root[data-theme="dark"] {
+    --COLOR-BLACK-ALPHA-2: #00000044;
+    --COLOR-BLACK-ALPHA-3: #00000088;
+}
+
+.grand-body {
+    position: relative;
+    display: grid;
+    grid-template-columns: 20rem 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        " navbar navbar"
+        " sidebar main";
+    background-color: var(--COLOR-SHADOW-PRIMARY-50);
+    min-height: 100vh;
+}
+
+.grand-nav {
+    grid-area: navbar;
+    z-index: 2;
+    grid-template-columns: auto auto minmax(auto, 500px) auto;
+    background-color: var(--OFF-WHITE);
+}
+
+.grand-sidebar {
+    grid-area: sidebar;
+    overflow-y: scroll;
+}
+
+.grand-sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+.grand-main {
+    grid-area: main;
+    background-color: var(--LIGHT-GREY);
+    padding: 2rem;
+}
+
+.grand-footer {
+    grid-area: footer;
+    background-color: var(--COLOR-SHADOW-PRIMARY-400);
+    padding: 2rem;
+    color: var(--OFF-BLACK);
+}
+
+@media only screen and (max-width: 768px) {
+    :root {
+        font-size: 56.25%;
+    }
+
+    .grand-body {
+        grid-template-columns: 7rem 1fr;
+    }
+
+    .cart-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .cart-wrapper .order-checkout {
+        width: 100%;
+        max-width: 45rem;
+    }
+
+    .navbar-responsive .nav-items .btn {
+        display: block;
+    }
+
+    .grand-filter {
+        display: block;
+        position: absolute;
+        height: calc(100% - 6rem);
+        width: auto;
+        right: 0;
+        background-color: var(--COLOR-SIDEBAR-BG);
+    }
+
+    .grand-body .navbar-responsive .nav-items .nav-hamburger {
+        display: block;
+    }
+}

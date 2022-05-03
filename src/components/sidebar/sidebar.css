@@ -1,0 +1,22 @@
+
+.sidebar{
+    grid-area:sidebar;
+    background-color: var(--OFF-WHITE);
+}
+
+.btn-nav{
+    display: flex;
+    gap: 10px;
+    padding:1rem 2rem;
+    cursor: pointer;
+    font-size: 1.6rem;
+    border:0;
+    width: 100%;
+    font-weight: 600;
+    color: var(--OFF-BLACK);
+    background: transparent;
+}
+
+.btn-nav:hover{
+    background-color: var(--COLOR-SHADOW-PRIMARY);
+}
