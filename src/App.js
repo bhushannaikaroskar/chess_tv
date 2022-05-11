@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { HomePage, NavBar, Sidebar } from "./components";
+import LoginPage from "./components/authpage/LoginPage";
 
 function App() {
     return (
@@ -10,6 +11,7 @@ function App() {
             <Sidebar />
             <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<LoginPage />} />
             </Routes>
         </div>
     );
