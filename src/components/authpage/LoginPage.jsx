@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
-// import { useDocumentTitle } from "../../utils";
+import { useDocumentTitle } from "../../utils/usDocumentTitle";
 import "./authpage.css"
 
 const guestCredentialsStyle = {
@@ -13,20 +13,42 @@ const guestCredentialsStyle = {
 const emailMatchPattern =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-export default function LoginPage() {
-    const [email, setEmail] = useState("");
-    const [emailError, setEmailError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
-    const [password, setPassword] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
+const initialObject = {
+    email:"",
+    password:"",
+    emailError:false,
+    passwordError:false,
+    showPassword:false
+}
 
-    // useDocumentTitle("Login")
+const reducer = (state,action) => {
+    switch(action.type){
+        case "EMAIL":
+            return {...state,email: action.payload.email}
+        case "PASSWORD":
+            return {...state,password: action.payload.password}
+        case "EMAIL_ERROR":
+            return {...state,emailError: action.payload.error}
+        case "PASSWORD_ERROR":
+            return {...state,passwordError: action.payload.error}
+        case "SHOW_PASSWORD":
+            return {...state,showPassword: action.payload.flag}
+        default:
+            return state;
+    }
+}
+
+export default function LoginPage() {
+    const [state,dispatch] = useReducer(reducer,initialObject);
+    const {email,emailError,password,passwordError,showPassword} = state;
+
+    useDocumentTitle("Login");
 
     const { error, loginUser } = useAuth();
 
     const useGuestCredentials = () => {
-        setEmail("guestuser@gmail.com");
-        setPassword("guestcredentials123");
+        dispatch({type:"EMAIL",payload:{email:"guestuser@gmail.com"}});
+        dispatch({type:"PASSWORD",payload:{password:"guestcredentials123"}});
         setTimeout(
             () => loginUser("guestuser@gmail.com", "guestcredentials123"),
             100
@@ -35,17 +57,17 @@ export default function LoginPage() {
 
     const loginHandler = () => {
         if (!email.match(emailMatchPattern)) {
-            setEmailError(true);
+            dispatch({type:"EMAIL_ERROR",payload:{error:true}});
             return;
         } else {
-            setEmailError(false);
+            dispatch({type:"EMAIL_ERROR",payload:{error:false}});;
         }
 
         if (password.length < 8) {
-            setPasswordError(true);
+            dispatch({type:"PASSWORD_ERROR",payload:{error:true}});;
             return;
         } else {
-            setPasswordError(false);
+            dispatch({type:"PASSWORD_ERROR",payload:{error:false}});;
         }
 
         loginUser(email, password);
@@ -64,11 +86,8 @@ export default function LoginPage() {
                             id="email"
                             type="email"
                             value={email}
-                            className={
-                                "input-field" +
-                                (emailError ? " input-color-error" : " ")
-                            }
-                            onChange={(e) => setEmail(e.target.value)}
+                            className={`input-field ${emailError?"input-color-error":""}`}
+                            onChange={(e) => dispatch({type:"EMAIL",payload:{email:e.target.value}})}
                         />
                         {emailError && (
                             <span className="input-message">
@@ -87,11 +106,8 @@ export default function LoginPage() {
                             id="password"
                             type={showPassword ? "text" : "password"}
                             value={password}
-                            className={
-                                "input-field" +
-                                (passwordError ? " input-color-error" : " ")
-                            }
-                            onChange={(e) => setPassword(e.target.value)}
+                            className={`input-field ${passwordError?"input-color-error":""}`}
+                            onChange={(e) => dispatch({type:"PASSWORD",payload:{password:e.target.value}})}
                         />
                         {passwordError && (
                             <span className="input-message">
@@ -105,7 +121,7 @@ export default function LoginPage() {
                                 type="checkbox"
                                 name="show-password"
                                 checked={showPassword}
-                                onChange={() => setShowPassword((s) => !s)}
+                                onChange={() => dispatch({type:"SHOW_PASSWORD",payload:{flag:!showPassword}})}
                             />{" "}
                             <span className="p-0_5"> </span> Show Password
                         </label>
@@ -126,7 +142,7 @@ export default function LoginPage() {
                     </button>
                     {error && (
                         <div className="font-error font-small">
-                            {error.response.data.errors[0]}
+                            {error}
                         </div>
                     )}
                     <div className="flex justify-content-center w-100 p-y-1 text-align-center">

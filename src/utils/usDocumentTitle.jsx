@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 export function useDocumentTitle(title) {
     useEffect(()=>{
-        document.title = `Grand Store | ${title}`
+        document.title = `Chess TV | ${title}`
     },[title])
 }

@@ -1,15 +1,46 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
 import { useDocumentTitle } from "../../utils/usDocumentTitle";
 
+const initialObject = {
+    email:"",
+    password:"",
+    emailError:false,
+    passwordError:false,
+    acceptTerms:false,
+    termsError:false
+}
+
+const reducer = (state,action) => {
+    switch(action.type){
+        case "EMAIL":
+            return {...state,email: action.payload.email}
+        case "PASSWORD":
+            return {...state,password: action.payload.password}
+        case "EMAIL_ERROR":
+            return {...state,emailError: action.payload.error}
+        case "PASSWORD_ERROR":
+            return {...state,passwordError: action.payload.error}
+        case "ACCEPT_TERMS":
+            return {...state,acceptTerms: action.payload.flag}
+        case "TERMS_ERROR":
+            return {...state,termsError: action.payload.flag}
+        default:
+            return state;
+    }
+}
+
 export default function SignUpPage() {
-    const [email, setEmail] = useState("");
-    const [emailError, setEmailError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
-    const [password, setPassword] = useState("");
-    const [acceptTerms, setAcceptTerms] = useState(false);
-    const [termsError, setTermsError] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [emailError, setEmailError] = useState(false);
+    // const [passwordError, setPasswordError] = useState(false);
+    // const [password, setPassword] = useState("");
+    // const [acceptTerms, setAcceptTerms] = useState(false);
+    // const [termsError, setTermsError] = useState("");
+
+    const [state,dispatch] = useReducer(reducer,initialObject);
+    const {email,emailError,password,passwordError,acceptTerms,termsError} = state;
 
     const { error, signUpUser } = useAuth();
     useDocumentTitle("Signup")
@@ -19,24 +50,24 @@ export default function SignUpPage() {
 
     const signupHandler = () => {
         if (!email.match(emailMatchPattern)) {
-            setEmailError(true);
+            dispatch({type:"EMAIL_ERROR",payload:{error:true}});
             return;
         } else {
-            setEmailError(false);
+            dispatch({type:"EMAIL_ERROR",payload:{error:false}});
         }
 
         if (password.length < 8) {
-            setPasswordError(true);
+            dispatch({type:"PASSWORD_ERROR",payload:{error:true}});
             return;
         } else {
-            setPasswordError(false);
+            dispatch({type:"PASSWORD_ERROR",payload:{error:false}});
         }
 
         if (!acceptTerms) {
-            setTermsError(true);
+            dispatch({type:"TERMS_ERROR",payload:{flag:true}})
             return;
         } else {
-            setTermsError(false);
+            dispatch({type:"TERMS_ERROR",payload:{flag:false}})
         }
 
         signUpUser(email, password);
@@ -55,11 +86,8 @@ export default function SignUpPage() {
                             id="email"
                             type="email"
                             value={email}
-                            className={
-                                "input-field" +
-                                (emailError ? " input-color-error" : " ")
-                            }
-                            onChange={(e) => setEmail(e.target.value)}
+                            className={`input-field ${emailError?"input-color-error":""}`}
+                            onChange={(e) => dispatch({type:"EMAIL",payload:{email:e.target.value}})}
                         />
                         {emailError && (
                             <span className="input-message">
@@ -75,11 +103,8 @@ export default function SignUpPage() {
                             id="password"
                             type="password"
                             value={password}
-                            className={
-                                "input-field" +
-                                (passwordError ? " input-color-error" : " ")
-                            }
-                            onChange={(e) => setPassword(e.target.value)}
+                            className={`input-field ${passwordError?"input-color-error":""}`}
+                            onChange={(e) => dispatch({type:"PASSWORD",payload:{password:e.target.value}})}
                         />
                         {passwordError && (
                             <span className="input-message">
@@ -93,7 +118,7 @@ export default function SignUpPage() {
                                 type="checkbox"
                                 name="show-password"
                                 checked={acceptTerms}
-                                onChange={() => setAcceptTerms((s) => !s)}
+                                onChange={(e) => dispatch({type:"ACCEPT_TERMS",payload:{flag:!acceptTerms}})}
                             />{" "}
                             <span className="p-0_5"> </span> I accept all Terms
                             and Conditions
@@ -113,7 +138,7 @@ export default function SignUpPage() {
                     </button>
                     {error && (
                         <div className="font-error font-small">
-                            {error.response.data.errors[0]}
+                            {error}
                         </div>
                     )}
                     <div className="flex justify-content-center w-100 p-y-1 text-align-center">

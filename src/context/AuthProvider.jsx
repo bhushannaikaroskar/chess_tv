@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 
 const AuthContext = createContext();
 
@@ -18,10 +18,8 @@ export default function AuthProvider({ children }) {
     const authReducer = (state, action) => {
         switch (action.type) {
             case "VERIFIED":
-                console.log(action.payload.foundUser);
                 ({ email, firstName, lastName, _id } =
                     action.payload.foundUser);
-                console.log(email, firstName, lastName, _id);
                 return {
                     ...state,
                     isAuthenticated: true,
@@ -29,9 +27,7 @@ export default function AuthProvider({ children }) {
                     authToken: action.payload.token,
                 };
             case "SIGNUP_VERIFIED":
-                // console.log(action.payload.foundUser)
                 ({email,firstName,lastName,_id} = action.payload.createdUser);
-                console.log(email,firstName,lastName,_id)
                 return {
                     ...state,
                     isAuthenticated: true,
@@ -47,6 +43,7 @@ export default function AuthProvider({ children }) {
     };
 
     const [auth, dispatchAuth] = useReducer(authReducer, initialAuthState);
+    const [error,setError] = useState();
 
     const loginUser = (email, password) => {
         axios
@@ -60,17 +57,17 @@ export default function AuthProvider({ children }) {
                 },
             })
             .then((res) => {
-                console.log(res);
-
                 dispatchAuth({
                     type: "VERIFIED",
                     payload: { token: res.data.encodedToken, ...res.data },
                 });
                 console.log("Logged in Successfully");
+                setError("")
             })
             .catch((err) => {
                 dispatchAuth({ type: "RESET" });
                 console.log("There was some error while logginng in", err);
+                setError(err.response.data.errors[0])
             });
     };
 
@@ -90,11 +87,12 @@ export default function AuthProvider({ children }) {
                     payload: { token: res.data.encodedToken,...res.data },
                 });
                 console.log("Signin Successful");
-                console.log(res)
+                setError("")
             })
             .catch((err) => {
                 dispatchAuth({ type: "RESET" });
                 console.log("There was some error in signing",err);
+                setError(err.response.data.errors[0])
             });
     };
 
@@ -104,7 +102,7 @@ export default function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{ auth, loginUser, signUpUser, logout }}>
+        <AuthContext.Provider value={{ auth, loginUser, signUpUser, logout, error }}>
             {children}
         </AuthContext.Provider>
     );
