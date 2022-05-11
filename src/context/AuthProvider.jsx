@@ -14,18 +14,30 @@ const initialAuthState = {
 };
 
 export default function AuthProvider({ children }) {
+    let email,firstName,lastName,_id;
     const authReducer = (state, action) => {
         switch (action.type) {
             case "VERIFIED":
                 console.log(action.payload.foundUser);
-                const { email, firstName, lastName, _id } =
-                    action.payload.foundUser;
+                ({ email, firstName, lastName, _id } =
+                    action.payload.foundUser);
                 console.log(email, firstName, lastName, _id);
                 return {
                     ...state,
                     isAuthenticated: true,
                     user: { email, firstName, lastName, _id },
                     authToken: action.payload.token,
+                };
+            case "SIGNUP_VERIFIED":
+                // console.log(action.payload.foundUser)
+                ({email,firstName,lastName,_id} = action.payload.createdUser);
+                console.log(email,firstName,lastName,_id)
+                return {
+                    ...state,
+                    isAuthenticated: true,
+                    user:{email,firstName,lastName,_id},
+                    authToken: action.payload.token,
+
                 };
             case "RESET":
                 return { ...initialAuthState };
@@ -74,14 +86,15 @@ export default function AuthProvider({ children }) {
             })
             .then((res) => {
                 dispatchAuth({
-                    type: "VERIFIED",
-                    payload: { token: res.data.encodedToken },
+                    type: "SIGNUP_VERIFIED",
+                    payload: { token: res.data.encodedToken,...res.data },
                 });
                 console.log("Signin Successful");
+                console.log(res)
             })
             .catch((err) => {
                 dispatchAuth({ type: "RESET" });
-                console.log("There was some error in signing");
+                console.log("There was some error in signing",err);
             });
     };
 
