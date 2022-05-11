@@ -58,6 +58,10 @@
     color: var(--OFF-BLACK);
 }
 
+.font-black{
+    color: var(--OFF-BLACK);
+}
+
 @media only screen and (max-width: 768px) {
     :root {
         font-size: 56.25%;

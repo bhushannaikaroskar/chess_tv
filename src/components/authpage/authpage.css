@@ -1,0 +1,13 @@
+.auth-container{
+    align-items: center;
+    background-color: var(--OFF-WHITE);
+    border-radius: 1rem;
+    box-shadow: 0 5px 1rem 0 var(--LIGHT-GREY);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    justify-content: center;
+    max-width: 45rem;
+    padding: 4rem 5rem;
+    width: 100%;
+}
