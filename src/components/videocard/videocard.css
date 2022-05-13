@@ -103,6 +103,17 @@
 
 .grand-video-card-btn{
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     cursor: pointer;
+    width: 100%;
+    max-width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 99px;
+}
+
+.grand-video-card-btn:hover{
+    background-color: var(--LIGHT-GREY);
 }

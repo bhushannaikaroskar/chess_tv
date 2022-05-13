@@ -27,6 +27,7 @@
         " sidebar main";
     background-color: var(--COLOR-SHADOW-PRIMARY-50);
     min-height: 100vh;
+    max-height: 100vh;
 }
 
 .grand-nav {
@@ -49,6 +50,7 @@
     grid-area: main;
     background-color: var(--LIGHT-GREY);
     padding: 2rem;
+    overflow-y: scroll;
 }
 
 .grand-footer {

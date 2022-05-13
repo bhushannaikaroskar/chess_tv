@@ -35,8 +35,6 @@ export default function VideoCard({ video }) {
     const { title, videoThumbnail, channelName, channelThumbNail, views } = video;
     const [isModal, setIsModal] = useState(false);
 
-    
-
     return (
         <div className="grand-video-card">
             <div className="grand-video-img-container">
