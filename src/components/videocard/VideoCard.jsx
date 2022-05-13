@@ -51,14 +51,14 @@ export default function VideoCard({ video }) {
                     </span>
                     <h3>Play</h3>
                 </div>
-                <img className="grand-video-img" src={videoThumbnail} alt="" />
+                <img className="grand-video-img" src={videoThumbnail} alt="thumbnail" />
             </div>
             <div className="grand-content-wrapper">
                 <div className="grand-channel-img-wrapper">
                     <img
                         className="grand-channel-img"
                         src={channelThumbNail}
-                        alt=""
+                        alt="channel-thumbnail"
                     />
                 </div>
                 <div className="grand-content">

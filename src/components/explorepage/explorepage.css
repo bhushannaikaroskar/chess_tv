@@ -1,32 +1,28 @@
-
-.grand-tags{
-    display:flex;
+.grand-tags {
+    display: flex;
     gap: 1rem;
     flex-wrap: wrap;
     font-size: 1.6rem;
     padding: 1rem 0;
 }
 
-.grand-tag{
+.grand-tag {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5px;
-    /* background-color: var(--COLOR-SHADOW-PRIMARY-400); */
     background-color: transparent;
     border-radius: 99rem;
     padding: 5px 1.4rem;
     font-weight: 600;
-    border: 2px solid var(--COLOR-SHADOW-PRIMARY-400);  
+    border: 2px solid var(--COLOR-SHADOW-PRIMARY-400);
 }
 
-.grand-tag:hover{
-    /* background-color: var(--PRIMARY-400); */
+.grand-tag:hover {
     background-color: var(--COLOR-SHADOW-PRIMARY-400);
 }
 
-
-.grand-video-list{
+.grand-video-list {
     padding: 1rem 0;
     display: flex;
     flex-wrap: wrap;
