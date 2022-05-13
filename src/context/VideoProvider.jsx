@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
 
 const VideoContext = createContext();
 
@@ -20,6 +20,8 @@ export default function VideoProvide({ children }) {
         }
     }, initialState);
 
+    const [modalId,setModalId] = useState("");
+
     const fetchVideos = () => {
         axios.request({
             method: "get",
@@ -35,8 +37,16 @@ export default function VideoProvide({ children }) {
         fetchVideos()
     },[])
 
+    const toggleModal = (videoId) => {
+        if(modalId === videoId){
+            setModalId("");
+        }else{
+            setModalId(videoId);
+        }
+    }
+
     return (
-        <VideoContext.Provider value={{ videoState, dispatchVideos }}>
+        <VideoContext.Provider value={{ videoState, dispatchVideos, modalId, toggleModal }}>
             {children}
         </VideoContext.Provider>
     );
