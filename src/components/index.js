@@ -9,5 +9,6 @@ import ExplorePage from "./explorepage/ExplorePage";
 import VideoPage from "./videopage/VideoPage";
 import RestrictedRoute from "./authRoutes/RestrictedRoute";
 import PrivateRoute from "./authRoutes/PrivateRoute";
+import LikedVideosPage from "./likedvideospage/LikedVideosPage";
 
-export {NavBar,HomePage,Sidebar, LoginPage, SignUpPage, ExplorePage, RestrictedRoute, PrivateRoute, VideoPage}
+export {NavBar,HomePage,Sidebar, LoginPage, SignUpPage, ExplorePage, RestrictedRoute, PrivateRoute, VideoPage, LikedVideosPage}

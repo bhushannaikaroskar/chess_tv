@@ -3,7 +3,9 @@ import "./App.css";
 import {
     ExplorePage,
     HomePage,
+    LikedVideosPage,
     NavBar,
+    PrivateRoute,
     RestrictedRoute,
     Sidebar,
 } from "./components";
@@ -23,6 +25,10 @@ function App() {
                 <Route element={<RestrictedRoute />}>
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignUpPage />} />
+                </Route>
+
+                <Route element={<PrivateRoute />}>
+                    <Route path="/liked_videos" element={<LikedVideosPage />} />
                 </Route>
             </Routes>
         </div>
