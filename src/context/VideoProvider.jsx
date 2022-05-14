@@ -28,7 +28,6 @@ export default function VideoProvide({ children }) {
             url: "/api/videos",
             data: {},
         }).then((res)=>{
-            console.log(res)
             dispatchVideos({type:"ADD_VIDEOS",payload:{videos:res.data.videos}})
         }).catch(err => console.log(err));
     };
