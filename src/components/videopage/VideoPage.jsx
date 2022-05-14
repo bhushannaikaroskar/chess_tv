@@ -38,7 +38,7 @@ export default function VideoPage() {
                             <div className="grand-video-cta">
                                 <div className="grand-item">
                                     <button className="grand-video-btn" onClick={()=>toggleLike(currentVideo)}>
-                                        <span class={`material-icons ${isLiked?"font-primary":""}`}>
+                                        <span className={`material-icons ${isLiked?"font-primary":""}`}>
                                             thumb_up
                                         </span>
                                     </button>
@@ -46,7 +46,7 @@ export default function VideoPage() {
                                 </div>
                                 <div className="grand-item">
                                     <button className="grand-video-btn">
-                                        <span class="material-icons">
+                                        <span className="material-icons">
                                             schedule
                                         </span>
                                     </button>
@@ -54,7 +54,7 @@ export default function VideoPage() {
                                 </div>
                                 <div className="grand-item">
                                     <button className="grand-video-btn">
-                                        <span class="material-icons">
+                                        <span className="material-icons">
                                             playlist_play
                                         </span>
                                     </button>

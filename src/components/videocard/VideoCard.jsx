@@ -49,13 +49,13 @@ export default function VideoCard({ video }) {
                     {modalId === _id && (
                         <div className="grand-video-options-modal">
                             <button className="grand-video-options-button">
-                                <span class="material-icons fw-400">
+                                <span className="material-icons fw-400">
                                     playlist_play
                                 </span>
                                 Add to Playlist
                             </button>
                             <button className="grand-video-options-button">
-                                <span class="material-icons">schedule</span>
+                                <span className="material-icons">schedule</span>
                                 Add to Watch Later
                             </button>
                         </div>
