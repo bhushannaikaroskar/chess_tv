@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
 import { useDocumentTitle } from "../../utils/usDocumentTitle";
@@ -32,12 +32,6 @@ const reducer = (state,action) => {
 }
 
 export default function SignUpPage() {
-    // const [email, setEmail] = useState("");
-    // const [emailError, setEmailError] = useState(false);
-    // const [passwordError, setPasswordError] = useState(false);
-    // const [password, setPassword] = useState("");
-    // const [acceptTerms, setAcceptTerms] = useState(false);
-    // const [termsError, setTermsError] = useState("");
 
     const [state,dispatch] = useReducer(reducer,initialObject);
     const {email,emailError,password,passwordError,acceptTerms,termsError} = state;
