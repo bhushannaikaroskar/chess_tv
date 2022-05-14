@@ -40,7 +40,7 @@ export const videos = [
     date: "Feb 21, 2022",
     videoLength: "9:07",
     videoThumbnail: "https://i.ytimg.com/vi/EClt8CmFKfU/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB4WddHsV8Jsxnt7EXNywIvxCaFgg",
-    category: "tournament ",
+    category: "tournament",
     channelName: "CHESS - ThanhCong Online",
     channelThumbNail: "https://yt3.ggpht.com/ytc/AKedOLTft-Al7pOkROCHW9EEYqeQVqFHt6F_YEXFhkmF=s88-c-k-c0x00ffffff-no-rj",
     subscribers: "61500",

@@ -6,7 +6,8 @@ import Sidebar from "./sidebar/Sidebar";
 import LoginPage from "./authpage/LoginPage";
 import SignUpPage from "./authpage/SignUpPage";
 import ExplorePage from "./explorepage/ExplorePage";
+import VideoPage from "./videopage/VideoPage";
 import RestrictedRoute from "./authRoutes/RestrictedRoute";
 import PrivateRoute from "./authRoutes/PrivateRoute";
 
-export {NavBar,HomePage,Sidebar, LoginPage, SignUpPage, ExplorePage, RestrictedRoute, PrivateRoute}
+export {NavBar,HomePage,Sidebar, LoginPage, SignUpPage, ExplorePage, RestrictedRoute, PrivateRoute, VideoPage}
