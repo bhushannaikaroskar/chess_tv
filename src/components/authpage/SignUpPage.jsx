@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../../context/AuthProvider";
+import { useAuth } from "../../context";
 import { useDocumentTitle } from "../../utils/usDocumentTitle";
 
 const initialObject = {
