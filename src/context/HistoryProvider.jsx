@@ -21,7 +21,6 @@ export default function HistoryProvider({ children }) {
                 data: {},
             })
             .then((res) => {
-                console.log(res.data.history);
                 setHistory([...res.data.history]);
             })
             .catch((err) => {
@@ -44,7 +43,6 @@ export default function HistoryProvider({ children }) {
                 },
             })
             .then((res) => {
-                console.log(res.data.history);
                 setHistory([...res.data.history]);
             })
             .catch((err) => {
@@ -65,7 +63,6 @@ export default function HistoryProvider({ children }) {
                 data: {},
             })
             .then((res) => {
-                console.log(res.data.history);
                 setHistory([...res.data.history]);
             })
             .catch((err) => {

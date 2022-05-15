@@ -18,7 +18,6 @@ export default function WatchLaterProvider({ children }) {
                 video
             }
         }).then((res)=>{
-            console.log(res.data.watchlater)
             setWatchLaterVideos([...res.data.watchlater])
             setLoader(false);
         }).catch((err)=>{
@@ -36,7 +35,6 @@ export default function WatchLaterProvider({ children }) {
             data:{
             }
         }).then((res)=>{
-            console.log(res.data.watchlater)
             setWatchLaterVideos([...res.data.watchlater])
             setLoader(false);
         }).catch((err)=>{
@@ -53,7 +51,6 @@ export default function WatchLaterProvider({ children }) {
             data:{
             }
         }).then((res)=>{
-            console.log(res.data.watchlater)
             setWatchLaterVideos([...res.data.watchlater])
             setLoader(false);
         }).catch((err)=>{
