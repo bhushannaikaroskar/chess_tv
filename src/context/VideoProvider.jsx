@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const VideoContext = createContext();
 
@@ -21,6 +22,7 @@ export default function VideoProvide({ children }) {
     }, initialState);
 
     const [modalId,setModalId] = useState("");
+    const location = useLocation()
 
     const fetchVideos = () => {
         axios.request({
@@ -35,6 +37,10 @@ export default function VideoProvide({ children }) {
     useEffect(()=>{
         fetchVideos()
     },[])
+    
+    useEffect(()=>{
+        setModalId("")
+    },[location])
 
     const toggleModal = (videoId) => {
         if(modalId === videoId){
