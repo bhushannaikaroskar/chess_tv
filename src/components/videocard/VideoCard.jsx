@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useVideos } from "../../context";
+import { useVideos, useWatchLater } from "../../context";
 import "./videocard.css";
 import { getViewString } from "../../utils";
 
@@ -10,7 +10,10 @@ export default function VideoCard({ video }) {
     const { _id, title, videoThumbnail, channelName, channelThumbNail, views } =
         video;
     const { modalId, toggleModal } = useVideos();
+    const { watchLaterVideos, toggleWatchLater } = useWatchLater();
     const navigate = useNavigate();
+
+    const isWatchLater = watchLaterVideos.length!==0 ?watchLaterVideos.find((vid) => vid._id === video._id):false;
 
     return (
         <div className="grand-video-card">
@@ -54,9 +57,9 @@ export default function VideoCard({ video }) {
                                 </span>
                                 Add to Playlist
                             </button>
-                            <button className="grand-video-options-button">
+                            <button className="grand-video-options-button" onClick={()=>toggleWatchLater(video)}>
                                 <span className="material-icons">schedule</span>
-                                Add to Watch Later
+                                {isWatchLater?"Remove from Watch later":"Add to Watch Later"}
                             </button>
                         </div>
                     )}

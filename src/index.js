@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { makeServer } from "./server";
-import { LikeProvider, VideoProvider, AuthProvider } from "./context";
+import { LikeProvider, VideoProvider, AuthProvider, WatchLaterProvider } from "./context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -15,9 +15,11 @@ root.render(
         <AuthProvider>
             <VideoProvider>
                 <LikeProvider>
-                    <Router>
-                        <App />
-                    </Router>
+                    <WatchLaterProvider>
+                        <Router>
+                            <App />
+                        </Router>
+                    </WatchLaterProvider>
                 </LikeProvider>
             </VideoProvider>
         </AuthProvider>

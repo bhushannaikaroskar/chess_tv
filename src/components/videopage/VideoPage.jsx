@@ -17,7 +17,7 @@ export default function VideoPage() {
     const isLiked = likedVideos.find(vid => vid._id === currentVideo._id)
 
     return (
-        <div className="grand-main">
+        <main className="grand-main">
             {currentVideo ? (
                 <div className="grand-video-grid">
                     <div className="grand-video-content-wrapper">
@@ -93,6 +93,6 @@ export default function VideoPage() {
             ) : (
                 "Loading Video"
             )}
-        </div>
+        </main>
     );
 }
