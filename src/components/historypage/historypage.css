@@ -1,0 +1,13 @@
+
+.grand-history-content{
+    display: flex;
+    gap: 2rem;
+    margin: 1rem 0;
+    align-items: center;
+}
+
+.grand-history-list{
+    display: flex;;
+    gap: 10px;
+    flex-wrap: wrap;
+}

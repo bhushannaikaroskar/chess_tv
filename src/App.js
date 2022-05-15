@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import {
     ExplorePage,
+    HistoryPage,
     HomePage,
     LikedVideosPage,
     NavBar,
@@ -31,6 +32,7 @@ function App() {
                 <Route element={<PrivateRoute />}>
                     <Route path="/liked_videos" element={<LikedVideosPage />} />
                     <Route path="/watch_later" element={<WatchLaterPage />} />
+                    <Route path="/history" element={<HistoryPage />} />
                 </Route>
             </Routes>
         </div>

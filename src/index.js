@@ -9,6 +9,7 @@ import {
     VideoProvider,
     AuthProvider,
     WatchLaterProvider,
+    HistoryProvider,
 } from "./context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -22,7 +23,9 @@ root.render(
                 <VideoProvider>
                     <LikeProvider>
                         <WatchLaterProvider>
-                            <App />
+                            <HistoryProvider>
+                                <App />
+                            </HistoryProvider>
                         </WatchLaterProvider>
                     </LikeProvider>
                 </VideoProvider>

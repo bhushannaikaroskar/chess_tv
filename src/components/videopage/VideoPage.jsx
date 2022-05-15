@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useLikes, useVideos } from "../../context";
+import { useAuth, useHistory, useLikes, useVideos } from "../../context";
 import { getSubscribersString, getViewString } from "../../utils";
 import VideoCard from "../videocard/VideoCard";
 import "./videopage.css";
@@ -9,12 +9,28 @@ export default function VideoPage() {
     const { videoId } = useParams();
     const { videoState } = useVideos();
     const { likedVideos, toggleLike } = useLikes()
+    const { auth } = useAuth();
+    const { history, addToHistory, removeFromHistory } = useHistory();
 
     const currentVideo = videoState.videos.find(
         (video) => video._id === videoId
     );
 
     const isLiked = likedVideos.find(vid => vid._id === currentVideo._id)
+
+    const handleHistory = async ()=>{
+        if(auth.isAuthenticated){
+            if(history.find( vid => vid._id === currentVideo._id)){
+                await removeFromHistory(currentVideo);
+            }
+            await addToHistory(currentVideo)
+        }
+    }
+
+
+    useEffect(()=>{
+        handleHistory()
+    },[videoId])
 
     return (
         <main className="grand-main">
