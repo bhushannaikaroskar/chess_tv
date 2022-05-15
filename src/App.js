@@ -3,11 +3,14 @@ import "./App.css";
 import {
     ExplorePage,
     HomePage,
+    LikedVideosPage,
     NavBar,
+    PrivateRoute,
     RestrictedRoute,
     Sidebar,
 } from "./components";
 import { LoginPage, SignUpPage } from "./components";
+import VideoPage from "./components/videopage/VideoPage";
 
 function App() {
     return (
@@ -18,9 +21,14 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/explore" element={<ExplorePage />} />
+                <Route path="/video/:videoId" element={<VideoPage />} />
                 <Route element={<RestrictedRoute />}>
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignUpPage />} />
+                </Route>
+
+                <Route element={<PrivateRoute />}>
+                    <Route path="/liked_videos" element={<LikedVideosPage />} />
                 </Route>
             </Routes>
         </div>

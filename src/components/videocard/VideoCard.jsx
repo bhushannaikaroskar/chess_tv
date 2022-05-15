@@ -2,36 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useVideos } from "../../context";
 import "./videocard.css";
+import { getViewString } from "../../utils";
 
-const getViewString = (views) => {
-    let viewCount = "";
-    let viewSymbol = "";
-    if (views > 1000000) {
-        viewSymbol = "M";
-        views = views / 1000000;
-        if (views > 10) {
-            views = "" + views;
-            viewCount = views.substring(0, 2);
-        } else {
-            views = "" + views;
-            viewCount = views.substring(0, 3);
-        }
-    } else if (views > 1000) {
-        viewSymbol = "K";
-        views = views / 1000;
-        if (views > 10 && views < 100) {
-            views = "" + views;
-            viewCount = views.substring(0, 2);
-        } else {
-            views = "" + views;
-            viewCount = views.substring(0, 3);
-        }
-    } else {
-        viewCount = "" + views;
-    }
 
-    return viewCount + viewSymbol;
-};
 
 export default function VideoCard({ video }) {
     const { _id, title, videoThumbnail, channelName, channelThumbNail, views } =
@@ -76,13 +49,13 @@ export default function VideoCard({ video }) {
                     {modalId === _id && (
                         <div className="grand-video-options-modal">
                             <button className="grand-video-options-button">
-                                <span class="material-icons fw-400">
+                                <span className="material-icons fw-400">
                                     playlist_play
                                 </span>
                                 Add to Playlist
                             </button>
                             <button className="grand-video-options-button">
-                                <span class="material-icons">schedule</span>
+                                <span className="material-icons">schedule</span>
                                 Add to Watch Later
                             </button>
                         </div>

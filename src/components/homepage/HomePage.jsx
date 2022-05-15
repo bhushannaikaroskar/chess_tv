@@ -17,7 +17,7 @@ export default function HomePage() {
                 <div className="grand-hero-content">
                     <h1>A Video Library for all Chess Lover</h1>
                     <div className="p-2"></div>
-                    <button class="btn btn-primary hero-button" onClick={()=>navigate("/explore")}>Explore</button>
+                    <button className="btn btn-primary hero-button" onClick={()=>navigate("/explore")}>Explore</button>
                 </div>
             </div>
             <h2 className="category-header">Categories</h2>
