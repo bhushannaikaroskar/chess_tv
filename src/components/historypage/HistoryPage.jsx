@@ -10,12 +10,19 @@ export default function HistoryPage() {
         <main className="grand-main">
             <div className="grand-history-content">
                 <h2>Watch History</h2>
-                <button className="btn btn-link-secondary" onClick={()=>clearHistory()}>Clear History</button>
+                {history.length !== 0 && (
+                    <button
+                        className="btn btn-link-secondary"
+                        onClick={() => clearHistory()}
+                    >
+                        Clear History
+                    </button>
+                )}
             </div>
             <div className="grand-history-list">
-                {[...history].reverse().map((video) => {
-                    return <VideoCard video={video} />;
-                })}
+                {[...history].reverse().map((video) => (
+                    <VideoCard video={video} isHistoryPage={true}/>
+                ))}
             </div>
         </main>
     );

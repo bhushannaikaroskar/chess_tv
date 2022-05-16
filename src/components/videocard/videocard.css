@@ -54,6 +54,32 @@
     display: flex;
 }
 
+.grand-video-img-close{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 1.6rem;
+    border:0;
+    border-radius: 99px;
+    color: var(--OFF-WHITE);
+    background-color: var(--COLOR-SHADOW-3);
+    transition: all 0.3s ease-in;
+}
+
+.grand-video-img-close:hover{
+    background-color: var(--COLOR-BLACK-ALPHA);
+
+}
+
+.grand-video-img-close span{
+    font-size: 2rem;
+}
+
 .grand-btn-lg{
     font-size: 3.6rem;
 }

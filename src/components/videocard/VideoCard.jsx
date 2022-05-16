@@ -1,33 +1,49 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useVideos, useWatchLater } from "../../context";
+import { useHistory, useVideos, useWatchLater } from "../../context";
 import "./videocard.css";
 import { getViewString } from "../../utils";
 
-
-
-export default function VideoCard({ video }) {
+export default function VideoCard({ video, isHistoryPage = false }) {
     const { _id, title, videoThumbnail, channelName, channelThumbNail, views } =
         video;
     const { modalId, toggleModal } = useVideos();
     const { watchLaterVideos, toggleWatchLater } = useWatchLater();
+    const { removeFromHistory } = useHistory();
     const navigate = useNavigate();
 
-    const isWatchLater = watchLaterVideos.length!==0 ?watchLaterVideos.find((vid) => vid._id === video._id):false;
+    const isWatchLater =
+        watchLaterVideos.length !== 0
+            ? watchLaterVideos.find((vid) => vid._id === video._id)
+            : false;
 
     return (
         <div className="grand-video-card">
             <div
                 className="grand-video-img-container"
-                onClick={() => navigate(`/video/${_id}`)}
             >
-                <div className="grand-img-overlay">
-                    <span className="material-icons-round grand-btn-lg">
-                        play_arrow
-                    </span>
-                    <h3>Play</h3>
-                </div>
-                <img className="grand-video-img" src={videoThumbnail} alt="thumbnail" />
+                {!isHistoryPage && (
+                    <div className="grand-img-overlay"
+                    onClick={() => navigate(`/video/${_id}`)}>
+                        <span className="material-icons-round grand-btn-lg">
+                            play_arrow
+                        </span>
+                        <h3>Play</h3>
+                    </div>
+                )}
+                {isHistoryPage && (
+                    <button className="grand-video-img-close" onClick={()=>removeFromHistory(video)}>
+                        <span className="material-icons-round grand-btn-lg">
+                            delete
+                        </span>
+                    </button>
+                )}
+
+                <img
+                    className="grand-video-img"
+                    src={videoThumbnail}
+                    alt="thumbnail"
+                />
             </div>
             <div className="grand-content-wrapper">
                 <div className="grand-channel-img-wrapper">
@@ -57,9 +73,14 @@ export default function VideoCard({ video }) {
                                 </span>
                                 Add to Playlist
                             </button>
-                            <button className="grand-video-options-button" onClick={()=>toggleWatchLater(video)}>
+                            <button
+                                className="grand-video-options-button"
+                                onClick={() => toggleWatchLater(video)}
+                            >
                                 <span className="material-icons">schedule</span>
-                                {isWatchLater?"Remove from Watch later":"Add to Watch Later"}
+                                {isWatchLater
+                                    ? "Remove from Watch later"
+                                    : "Add to Watch Later"}
                             </button>
                         </div>
                     )}
