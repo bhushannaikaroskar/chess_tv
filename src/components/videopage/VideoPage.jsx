@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useLikes, useVideos } from "../../context";
+import { useAuth, useHistory, useLikes, useVideos, useWatchLater } from "../../context";
 import { getSubscribersString, getViewString } from "../../utils";
 import VideoCard from "../videocard/VideoCard";
 import "./videopage.css";
@@ -9,15 +9,33 @@ export default function VideoPage() {
     const { videoId } = useParams();
     const { videoState } = useVideos();
     const { likedVideos, toggleLike } = useLikes()
+    const { auth } = useAuth();
+    const { history, addToHistory, removeFromHistory } = useHistory();
+    const {watchLaterVideos,toggleWatchLater } = useWatchLater()
 
     const currentVideo = videoState.videos.find(
         (video) => video._id === videoId
     );
 
     const isLiked = likedVideos.find(vid => vid._id === currentVideo._id)
+    const isWatchLater = watchLaterVideos.find(vid => vid._id === currentVideo._id)
+
+    const handleHistory = async ()=>{
+        if(auth.isAuthenticated){
+            if(history.find( vid => vid._id === currentVideo._id)){
+                await removeFromHistory(currentVideo);
+            }
+            await addToHistory(currentVideo)
+        }
+    }
+
+
+    useEffect(()=>{
+        handleHistory()
+    },[videoId])
 
     return (
-        <div className="grand-main">
+        <main className="grand-main">
             {currentVideo ? (
                 <div className="grand-video-grid">
                     <div className="grand-video-content-wrapper">
@@ -45,8 +63,8 @@ export default function VideoPage() {
                                     {getViewString(currentVideo.likes + (isLiked?1:0))}
                                 </div>
                                 <div className="grand-item">
-                                    <button className="grand-video-btn">
-                                        <span className="material-icons">
+                                    <button className="grand-video-btn" onClick={()=>toggleWatchLater(currentVideo)}>
+                                        <span className={`material-icons ${isWatchLater?"font-primary":""}`}>
                                             schedule
                                         </span>
                                     </button>
@@ -93,6 +111,6 @@ export default function VideoPage() {
             ) : (
                 "Loading Video"
             )}
-        </div>
+        </main>
     );
 }

@@ -2,12 +2,14 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import {
     ExplorePage,
+    HistoryPage,
     HomePage,
     LikedVideosPage,
     NavBar,
     PrivateRoute,
     RestrictedRoute,
     Sidebar,
+    WatchLaterPage,
 } from "./components";
 import { LoginPage, SignUpPage } from "./components";
 import VideoPage from "./components/videopage/VideoPage";
@@ -29,6 +31,8 @@ function App() {
 
                 <Route element={<PrivateRoute />}>
                     <Route path="/liked_videos" element={<LikedVideosPage />} />
+                    <Route path="/watch_later" element={<WatchLaterPage />} />
+                    <Route path="/history" element={<HistoryPage />} />
                 </Route>
             </Routes>
         </div>
