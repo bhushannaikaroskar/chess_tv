@@ -12,10 +12,7 @@ export default function VideoCard({ video, isHistoryPage = false }) {
     const { removeFromHistory } = useHistory();
     const navigate = useNavigate();
 
-    const isWatchLater =
-        watchLaterVideos.length !== 0
-            ? watchLaterVideos.find((vid) => vid._id === video._id)
-            : false;
+    const isWatchLater = watchLaterVideos.find((vid) => vid._id === video._id);
 
     return (
         <div className="grand-video-card">

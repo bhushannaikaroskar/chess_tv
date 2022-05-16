@@ -9,7 +9,7 @@ export default function WatchLaterPage() {
         <main className="grand-main">
             <h2 className="p-y-1">Watch Later</h2>
             <div className="grand-watch-later-list">
-                {watchLaterVideos.length !== 0 ? (
+                {watchLaterVideos.length > 0 ? (
                     watchLaterVideos.map((vid) => <VideoCard video={vid} />)
                 ) : (
                     <div className=" font-large">
