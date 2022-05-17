@@ -22,6 +22,10 @@
     background-color: var(--COLOR-SHADOW-PRIMARY-400);
 }
 
+.grand-tag-active{
+    background-color: var(--COLOR-SHADOW-PRIMARY-400);
+}
+
 .grand-video-list {
     padding: 1rem 0;
     display: flex;

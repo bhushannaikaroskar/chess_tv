@@ -106,7 +106,7 @@ export default function VideoPage() {
                                     currentVideo.category === vid.category
                             )
                             .map((vid) => {
-                                return <VideoCard video={vid} />;
+                                return <VideoCard key={vid._id} video={vid} />;
                             })}
                     </div>
                 </div>
