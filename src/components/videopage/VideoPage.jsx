@@ -14,7 +14,7 @@ export default function VideoPage() {
     const { auth } = useAuth();
     const { history, addToHistory, removeFromHistory } = useHistory();
     const {watchLaterVideos,toggleWatchLater } = useWatchLater()
-    const { showPlaylistModal, createPlaylistModal} = usePlaylist()
+    const { showPlaylistModal, createPlaylistModal,setShowPlaylistModal} = usePlaylist()
 
     const currentVideo = videoState.videos.find(
         (video) => video._id === videoId
@@ -73,7 +73,7 @@ export default function VideoPage() {
                                     Watch Later
                                 </div>
                                 <div className="grand-item">
-                                    <button className="grand-video-btn">
+                                    <button className="grand-video-btn" onClick={()=>{setShowPlaylistModal(s=>!s)}}>
                                         <span className="material-icons">
                                             playlist_play
                                         </span>
@@ -114,7 +114,7 @@ export default function VideoPage() {
                 "Loading Video"
             )}
             
-            {showPlaylistModal && <SelectPlaylistModal/>}
+            {showPlaylistModal && <SelectPlaylistModal video={currentVideo}/>}
             {createPlaylistModal && <AddPlaylistModal/>}
         </main>
     );
