@@ -47,6 +47,9 @@ export default function VideoProvide({ children }) {
     
     useEffect(()=>{
         setModalId("")
+        if(location.pathname !== "/explore"){
+            dispatchVideos({type:"RESET_FILTERS"})
+        }
     },[location])
 
     const toggleModal = (videoId) => {
