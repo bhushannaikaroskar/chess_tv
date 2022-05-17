@@ -12,6 +12,7 @@ import {
     WatchLaterPage,
 } from "./components";
 import { LoginPage, SignUpPage } from "./components";
+import PlaylistPage from "./components/playlistpage/PlaylistPage";
 import VideoPage from "./components/videopage/VideoPage";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
                     <Route path="/liked_videos" element={<LikedVideosPage />} />
                     <Route path="/watch_later" element={<WatchLaterPage />} />
                     <Route path="/history" element={<HistoryPage />} />
+                    <Route path="/playlist" element={<PlaylistPage />} />
                 </Route>
             </Routes>
         </div>

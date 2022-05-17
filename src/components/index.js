@@ -12,5 +12,7 @@ import PrivateRoute from "./authRoutes/PrivateRoute";
 import LikedVideosPage from "./likedvideospage/LikedVideosPage";
 import WatchLaterPage from "./watchlaterpage/WatchLaterPage";
 import HistoryPage from "./historypage/HistoryPage";
+import AddPlaylistModal from "./playlistpage/AddPlaylistModal";
+import SelectPlaylistModal from "./playlistpage/SelectPlaylistModal";
 
-export {NavBar,HomePage,Sidebar, LoginPage, SignUpPage, ExplorePage, RestrictedRoute, PrivateRoute, VideoPage, LikedVideosPage, WatchLaterPage, HistoryPage}
+export {NavBar,HomePage,Sidebar, LoginPage, SignUpPage, ExplorePage, RestrictedRoute, PrivateRoute, VideoPage, LikedVideosPage, WatchLaterPage, HistoryPage, AddPlaylistModal, SelectPlaylistModal}
