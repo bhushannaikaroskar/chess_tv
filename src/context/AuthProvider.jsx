@@ -1,5 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useReducer, useState } from "react";
+import { errorToast, successToast } from "../utils";
+import { useTheme } from "./ThemeProvider";
 
 const AuthContext = createContext();
 
@@ -44,6 +46,7 @@ export default function AuthProvider({ children }) {
 
     const [auth, dispatchAuth] = useReducer(authReducer, initialAuthState);
     const [error,setError] = useState();
+    const {theme} = useTheme()
 
     const loginUser = (email, password) => {
         axios
@@ -61,12 +64,12 @@ export default function AuthProvider({ children }) {
                     type: "VERIFIED",
                     payload: { token: res.data.encodedToken, ...res.data },
                 });
-                console.log("Logged in Successfully");
+                successToast("Logged In",theme)
                 setError("")
             })
             .catch((err) => {
                 dispatchAuth({ type: "RESET" });
-                console.log("There was some error while logginng in", err);
+                errorToast("There was some error while logging in",theme)
                 setError(err.response.data.errors[0])
             });
     };
@@ -86,19 +89,19 @@ export default function AuthProvider({ children }) {
                     type: "SIGNUP_VERIFIED",
                     payload: { token: res.data.encodedToken,...res.data },
                 });
-                console.log("Signin Successful");
+                successToast("Signin Successful",theme)
                 setError("")
             })
             .catch((err) => {
                 dispatchAuth({ type: "RESET" });
-                console.log("There was some error in signing",err);
+                errorToast("There was some error in signing",theme)
                 setError(err.response.data.errors[0])
             });
     };
 
     const logout = () => {
         dispatchAuth({ type: "RESET" });
-        console.log("Successfully logged out.");
+        successToast("Successfully logged out",theme)
     };
 
     return (

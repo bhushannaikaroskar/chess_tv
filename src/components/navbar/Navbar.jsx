@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import SearchBar from "./Searchbar";
 import Logo from "./logo";
 import "./navbar.css"
@@ -9,7 +9,7 @@ import { useAuth, useTheme, useVideos } from "../../context";
 
 export default function NavBar({isVisible}) {
 
-    const {searchValue, setSearchValue} = useVideos();
+    const { setSearchValue} = useVideos();
     const {auth,logout} = useAuth();
     const {theme,toggle} = useTheme();
  

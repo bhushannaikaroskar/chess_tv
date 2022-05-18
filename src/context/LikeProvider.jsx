@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { errorToast, successToast } from "../utils";
 import { useAuth } from "./AuthProvider";
+import { useTheme } from "./ThemeProvider";
 
 const LikeContext = createContext();
 
@@ -8,7 +10,7 @@ export default function LikeProvider({children}) {
 
     const [likedVideos,setLikedVideos] = useState([]);
     const {auth} = useAuth();
-
+    const {theme} = useTheme()
 
     const addLike = (video,setLoader=()=>{}) => {
         if(!auth.isAuthenticated){
@@ -24,7 +26,7 @@ export default function LikeProvider({children}) {
                 video:video
             }
         }).then((res)=>{
-            console.log(res.data.likes)
+            successToast("Liked video",theme)
             setLikedVideos([...res.data.likes])
             setLoader(false)
         }).catch((err)=>{
@@ -46,10 +48,9 @@ export default function LikeProvider({children}) {
 
             }
         }).then((res)=>{
-            console.log(res.data.likes)
             setLikedVideos([...res.data.likes])
         }).catch((err)=>{
-            console.log(err)
+            errorToast("Liked video",theme)
         })
     }
 
@@ -67,7 +68,7 @@ export default function LikeProvider({children}) {
 
             }
         }).then((res)=>{
-            console.log(res.data.likes)
+            successToast("Unliked video",theme)
             setLikedVideos([...res.data.likes])
             setLoader(false)
         }).catch((err)=>{

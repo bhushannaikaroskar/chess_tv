@@ -1,16 +1,19 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { errorToast, successToast } from "../utils";
 import { useAuth } from "./AuthProvider";
+import { useTheme } from "./ThemeProvider";
 
 const HistoryContext = createContext();
 
 export default function HistoryProvider({ children }) {
     const [history, setHistory] = useState([]);
     const { auth } = useAuth();
+    const {theme} = useTheme()
 
     const getHistory = () => {
         if (!auth.isAuthenticated) {
-            console.log("User is not Authenticated");
+            errorToast("User is not Authenticated",theme)
             return;
         }
         axios
@@ -30,7 +33,7 @@ export default function HistoryProvider({ children }) {
 
     const addToHistory = (video) => {
         if (!auth.isAuthenticated) {
-            console.log("User is not Authenticated");
+            errorToast("User is not Authenticated",theme)
             return;
         }
         axios
@@ -52,7 +55,7 @@ export default function HistoryProvider({ children }) {
 
     const removeFromHistory = (video) => {
         if (!auth.isAuthenticated) {
-            console.log("User is not Authenticated");
+            errorToast("User is not Authenticated",theme)
             return;
         }
         axios
@@ -66,13 +69,13 @@ export default function HistoryProvider({ children }) {
                 setHistory([...res.data.history]);
             })
             .catch((err) => {
-                console.log(err);
+                errorToast("Unable to remove video",theme)
             });
     };
 
     const clearHistory = () => {
         if (!auth.isAuthenticated) {
-            console.log("User is not Authenticated");
+            errorToast("User is not Authenticated",theme)
             return;
         }
         axios
@@ -83,11 +86,11 @@ export default function HistoryProvider({ children }) {
                 data: {},
             })
             .then((res) => {
-                console.log(res.data.history);
+                successToast("Cleared history",theme)
                 setHistory([...res.data.history]);
             })
             .catch((err) => {
-                console.log(err);
+                errorToast("Unable to clear history",theme)
             });
     };
 

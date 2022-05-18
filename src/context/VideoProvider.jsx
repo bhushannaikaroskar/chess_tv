@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { errorToast } from "../utils";
+import { useTheme } from "./ThemeProvider";
 
 const VideoContext = createContext();
 
@@ -31,6 +33,7 @@ export default function VideoProvide({ children }) {
     const [modalId,setModalId] = useState("");
     const [searchValue,setSearchValue] = useState("");
     const location = useLocation()
+    const {theme} = useTheme()
 
     const fetchVideos = () => {
         axios.request({
@@ -39,7 +42,7 @@ export default function VideoProvide({ children }) {
             data: {},
         }).then((res)=>{
             dispatchVideos({type:"ADD_VIDEOS",payload:{videos:res.data.videos}})
-        }).catch(err => console.log(err));
+        }).catch(err => errorToast("There was some error fetching videos",theme));
     };
 
     useEffect(()=>{
