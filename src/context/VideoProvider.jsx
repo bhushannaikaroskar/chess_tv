@@ -6,7 +6,12 @@ const VideoContext = createContext();
 
 const initialState = {
     videos: [],
-    filters: [],
+    filters: {
+        learn: false,
+        openings: false,
+        tournament: false,
+        advanced: false,
+    },
 };
 
 export default function VideoProvide({ children }) {
@@ -14,8 +19,10 @@ export default function VideoProvide({ children }) {
         switch (action.type) {
             case "ADD_VIDEOS":
                 return { ...state, videos: [...action.payload.videos] };
+            case "TOGGLE_FILTERS":
+                return {...state,filters:{...state.filters, [action.payload.key]:!state.filters[action.payload.key]}}
             case "RESET_FILTERS":
-                return { ...initialState };
+                return { ...state,filters:{...initialState.filters} };
             default:
                 return state;
         }
@@ -40,6 +47,9 @@ export default function VideoProvide({ children }) {
     
     useEffect(()=>{
         setModalId("")
+        if(location.pathname !== "/explore"){
+            dispatchVideos({type:"RESET_FILTERS"})
+        }
     },[location])
 
     const toggleModal = (videoId) => {
@@ -50,8 +60,20 @@ export default function VideoProvide({ children }) {
         }
     }
 
+    const videoFilter = (state) => {
+        const filters = state.filters;
+        let filteredVideos
+        if(Object.entries(filters).some(([key,value])=>value)){
+            filteredVideos = state.videos.filter((video)=> filters[video.category])
+        }else{
+            filteredVideos = [...state.videos]
+        }
+
+        return filteredVideos;
+    }
+
     return (
-        <VideoContext.Provider value={{ videoState, dispatchVideos, modalId, toggleModal }}>
+        <VideoContext.Provider value={{ videoState, dispatchVideos, modalId, toggleModal, videoFilter }}>
             {children}
         </VideoContext.Provider>
     );

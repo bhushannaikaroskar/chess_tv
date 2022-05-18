@@ -1,16 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useHistory, useVideos, useWatchLater } from "../../context";
+import { useAuth, useHistory, usePlaylist, useVideos, useWatchLater } from "../../context";
 import "./videocard.css";
 import { getViewString } from "../../utils";
 
-export default function VideoCard({ video, isHistoryPage = false }) {
+export default function VideoCard({ video, isHistoryPage = false,setVideo=()=>{}, playlistId = false }) {
     const { _id, title, videoThumbnail, channelName, channelThumbNail, views } =
         video;
     const { modalId, toggleModal } = useVideos();
     const { watchLaterVideos, toggleWatchLater } = useWatchLater();
     const { removeFromHistory } = useHistory();
+    const { removeFromPlaylist, setShowPlaylistModal} = usePlaylist()
     const navigate = useNavigate();
+    const {auth} = useAuth()
 
     const isWatchLater = watchLaterVideos.find((vid) => vid._id === video._id);
 
@@ -64,12 +66,27 @@ export default function VideoCard({ video, isHistoryPage = false }) {
                     <span className="material-icons ">more_vert</span>
                     {modalId === _id && (
                         <div className="grand-video-options-modal">
-                            <button className="grand-video-options-button">
+                            {playlistId ? <button className="grand-video-options-button" onClick={()=>{
+                                if(!auth.isAuthenticated){
+                                    navigate("/login")
+                                }
+                                removeFromPlaylist(playlistId,video)
+                                }}>
+                                <span className="material-icons fw-400">
+                                    playlist_play
+                                </span>
+                                Remove from Playlist
+                            </button>:<button className="grand-video-options-button" onClick={()=>{
+                                if(!auth.isAuthenticated){
+                                    navigate("/login")
+                                }
+                                setVideo(video);
+                                setShowPlaylistModal(s=>!s)}}>
                                 <span className="material-icons fw-400">
                                     playlist_play
                                 </span>
                                 Add to Playlist
-                            </button>
+                            </button>}
                             <button
                                 className="grand-video-options-button"
                                 onClick={() => toggleWatchLater(video)}
