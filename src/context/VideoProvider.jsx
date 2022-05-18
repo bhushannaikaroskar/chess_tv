@@ -29,6 +29,7 @@ export default function VideoProvide({ children }) {
     }, initialState);
 
     const [modalId,setModalId] = useState("");
+    const [searchValue,setSearchValue] = useState("");
     const location = useLocation()
 
     const fetchVideos = () => {
@@ -49,6 +50,7 @@ export default function VideoProvide({ children }) {
         setModalId("")
         if(location.pathname !== "/explore"){
             dispatchVideos({type:"RESET_FILTERS"})
+            setSearchValue("")
         }
     },[location])
 
@@ -69,11 +71,11 @@ export default function VideoProvide({ children }) {
             filteredVideos = [...state.videos]
         }
 
-        return filteredVideos;
+        return filteredVideos.filter(video => video.title.toLowerCase().includes(searchValue.toLowerCase().trim()));
     }
 
     return (
-        <VideoContext.Provider value={{ videoState, dispatchVideos, modalId, toggleModal, videoFilter }}>
+        <VideoContext.Provider value={{ videoState, dispatchVideos, modalId, toggleModal, videoFilter, searchValue, setSearchValue }}>
             {children}
         </VideoContext.Provider>
     );
