@@ -7,15 +7,17 @@ import {
     HistoryPage,
     HomePage,
     LikedVideosPage,
-    NavBar,
+    LoginPage,
+    PlaylistPage,
+    SignUpPage,
+    WatchLaterPage,
+} from "./pages";
+import {
     PrivateRoute,
     RestrictedRoute,
     Sidebar,
-    WatchLaterPage,
-} from "./components";
-import { LoginPage, SignUpPage } from "./components";
-import PlaylistPage from "./components/playlistpage/PlaylistPage";
-import VideoPage from "./components/videopage/VideoPage";
+    NavBar,} from "./components"
+import VideoPage from "./pages/videopage/VideoPage";
 
 function App() {
     return (

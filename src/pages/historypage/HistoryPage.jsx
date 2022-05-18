@@ -1,6 +1,6 @@
 import React from "react";
+import { VideoCard } from "../../components";
 import { useHistory } from "../../context";
-import VideoCard from "../videocard/VideoCard";
 import "./historypage.css";
 
 export default function HistoryPage() {

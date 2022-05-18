@@ -1,6 +1,6 @@
 import React from "react";
+import { VideoCard } from "../../components";
 import { useLikes } from "../../context";
-import VideoCard from "../videocard/VideoCard";
 import "./likedvideopage.css";
 
 export default function LikedVideosPage() {
