@@ -139,6 +139,7 @@
     max-width: 3.2rem;
     height: 3.2rem;
     border-radius: 99px;
+    background-color: transparent;
 }
 
 .grand-video-card-btn:hover{
@@ -155,7 +156,7 @@
     width: max-content;
     min-width: 8rem;
     border-radius: 3px;
-    background-color: white;
+    background-color: var(--WHITE);
     z-index: 10;
     overflow: hidden;
 }
