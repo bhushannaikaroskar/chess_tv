@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { errorToast, successToast } from "../utils";
 import { useAuth } from "./AuthProvider";
+import { useTheme } from "./ThemeProvider";
 
 const PlaylistContext = createContext();
 
@@ -9,10 +11,11 @@ export default function PlaylistProvider({ children }) {
     const [createPlaylistModal, setCreatePlaylistModal] = useState(false);
     const [showPlaylistModal, setShowPlaylistModal] = useState(false);
     const { auth } = useAuth();
+    const {theme} = useTheme();
 
     const getPlaylists = () => {
         if (!auth.isAuthenticated) {
-            console.log("User is not Authenticated");
+            errorToast("User is not Authenticated",theme)
             return;
         }
         axios
@@ -27,13 +30,13 @@ export default function PlaylistProvider({ children }) {
                 setPlaylist([...res.data.playlists]);
             })
             .catch((err) => {
-                console.log(err);
+                errorToast("Some error while fetching playlist",theme)
             });
     };
 
     const addPlaylist = (title, description) => {
         if (!auth.isAuthenticated) {
-            console.log("User is not Authenticated");
+            errorToast("User is not Authenticated",theme)
             return;
         }
         axios
@@ -49,17 +52,17 @@ export default function PlaylistProvider({ children }) {
                 },
             })
             .then((res) => {
-                console.log(res.data.playlists);
+                successToast("Added Playlist",theme)
                 setPlaylist([...res.data.playlists]);
             })
             .catch((err) => {
-                console.log(err);
+                errorToast("Some error while adding Playlist",theme)
             });
     };
 
     const removePlaylist = (playlistId) => {
         if (!auth.isAuthenticated) {
-            console.log("User is not Authenticated");
+            errorToast("User is not Authenticated",theme)
             return;
         }
         axios
@@ -70,17 +73,17 @@ export default function PlaylistProvider({ children }) {
                 data: {},
             })
             .then((res) => {
-                console.log(res.data.playlists);
+                successToast("Removed Playlist",theme)
                 setPlaylist([...res.data.playlists]);
             })
             .catch((err) => {
-                console.log(err);
+                errorToast("Some error while removing Playlist",theme)
             });
     };
 
     const addToPlaylist = (playlistId, video) => {
         if (!auth.isAuthenticated) {
-            console.log("User is not Authenticated");
+            errorToast("User is not Authenticated",theme)
             return;
         }
         axios
@@ -93,7 +96,7 @@ export default function PlaylistProvider({ children }) {
                 },
             })
             .then((res) => {
-                console.log(res.data.playlist);
+                successToast("Added video to Playlist",theme)
                 setPlaylist((s) => [
                     ...s.map((playlist) =>
                         playlist._id === res.data.playlist._id
@@ -103,13 +106,13 @@ export default function PlaylistProvider({ children }) {
                 ]);
             })
             .catch((err) => {
-                console.log(err);
+                errorToast("Some error while adding video",theme)
             });
     };
 
     const removeFromPlaylist = (playlistId, video) => {
         if (!auth.isAuthenticated) {
-            console.log("User is not Authenticated");
+            errorToast("User is not Authenticated",theme)
             return;
         }
         axios
@@ -121,7 +124,7 @@ export default function PlaylistProvider({ children }) {
                 },
             })
             .then((res) => {
-                console.log(res.data.playlist);
+                successToast("Removing video from Playlist",theme)
                 setPlaylist((s) => [
                     ...s.map((playlist) =>
                         playlist._id === res.data.playlist._id
@@ -131,7 +134,7 @@ export default function PlaylistProvider({ children }) {
                 ]);
             })
             .catch((err) => {
-                console.log(err);
+                errorToast("Some error while removing video",theme)
             });
     };
 

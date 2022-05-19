@@ -11,3 +11,20 @@
     position: fixed;
     z-index: 3;
 }
+
+.account-modal {
+    background-color: var(--WHITE);
+    border: 1px solid var(--WHITE);
+    border-radius: 5px;
+    box-shadow: 0 1px px 4px 0 var(--OFF-WHITE);
+    display: none;
+    padding: 1rem 2rem;
+    position: absolute;
+    right: 1.8rem;
+    top: 3.8rem;
+    width: 13rem;
+}
+
+.account:hover .account-modal{
+    display: block;
+}

@@ -1,19 +1,23 @@
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import {
     ExplorePage,
     HistoryPage,
     HomePage,
     LikedVideosPage,
-    NavBar,
+    LoginPage,
+    PlaylistPage,
+    SignUpPage,
+    WatchLaterPage,
+} from "./pages";
+import {
     PrivateRoute,
     RestrictedRoute,
     Sidebar,
-    WatchLaterPage,
-} from "./components";
-import { LoginPage, SignUpPage } from "./components";
-import PlaylistPage from "./components/playlistpage/PlaylistPage";
-import VideoPage from "./components/videopage/VideoPage";
+    NavBar,} from "./components"
+import VideoPage from "./pages/videopage/VideoPage";
 
 function App() {
     return (
@@ -37,6 +41,7 @@ function App() {
                     <Route path="/playlist" element={<PlaylistPage />} />
                 </Route>
             </Routes>
+            <ToastContainer position="bottom-right" />
         </div>
     );
 }

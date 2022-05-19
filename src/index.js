@@ -12,6 +12,7 @@ import {
     HistoryProvider,
     PlaylistProvider,
 } from "./context";
+import ThemeProvider from "./context/ThemeProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -19,20 +20,22 @@ makeServer();
 
 root.render(
     <React.StrictMode>
-        <AuthProvider>
-            <Router>
-                <VideoProvider>
-                    <LikeProvider>
-                        <WatchLaterProvider>
-                            <PlaylistProvider>
-                                <HistoryProvider>
-                                    <App />
-                                </HistoryProvider>
-                            </PlaylistProvider>
-                        </WatchLaterProvider>
-                    </LikeProvider>
-                </VideoProvider>
-            </Router>
-        </AuthProvider>
+        <ThemeProvider>
+            <AuthProvider>
+                <Router>
+                    <VideoProvider>
+                        <LikeProvider>
+                            <WatchLaterProvider>
+                                <PlaylistProvider>
+                                    <HistoryProvider>
+                                        <App />
+                                    </HistoryProvider>
+                                </PlaylistProvider>
+                            </WatchLaterProvider>
+                        </LikeProvider>
+                    </VideoProvider>
+                </Router>
+            </AuthProvider>
+        </ThemeProvider>
     </React.StrictMode>
 );

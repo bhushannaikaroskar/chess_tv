@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { errorToast, successToast } from "../utils";
 import { useAuth } from "./AuthProvider";
+import { useTheme } from "./ThemeProvider";
 
 const WatchLaterContext = createContext();
 
@@ -8,6 +10,7 @@ export default function WatchLaterProvider({ children }) {
 
     const [watchLaterVideos,setWatchLaterVideos] = useState([]);
     const { auth} = useAuth();
+    const {theme} = useTheme();
 
     const addWatchLaterVideo = (video,setLoader=()=>{}) => {
         axios.request({
@@ -18,11 +21,11 @@ export default function WatchLaterProvider({ children }) {
                 video
             }
         }).then((res)=>{
+            successToast("Added to Watch later",theme)
             setWatchLaterVideos([...res.data.watchlater])
             setLoader(false);
         }).catch((err)=>{
-            console.log(err)
-            console.log(err.response)
+            errorToast("Some error while adding to Watch later",theme)
             setLoader(false)
         })
     }
@@ -35,10 +38,11 @@ export default function WatchLaterProvider({ children }) {
             data:{
             }
         }).then((res)=>{
+            successToast("Removed from Watch later",theme)
             setWatchLaterVideos([...res.data.watchlater])
             setLoader(false);
         }).catch((err)=>{
-            console.log(err)
+            errorToast("Some error while adding to Watch later",theme)
             setLoader(false)
         })
     }
@@ -54,7 +58,7 @@ export default function WatchLaterProvider({ children }) {
             setWatchLaterVideos([...res.data.watchlater])
             setLoader(false);
         }).catch((err)=>{
-            console.log(err)
+            errorToast("Some error while fetching Watch later",theme)
             setLoader(false)
         })
     }

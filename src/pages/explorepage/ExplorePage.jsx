@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { usePlaylist, useVideos } from "../../context";
+import { VideoCard } from "../../components";
+import "./explorepage.css";
 import AddPlaylistModal from "../playlistpage/AddPlaylistModal";
 import SelectPlaylistModal from "../playlistpage/SelectPlaylistModal";
-import VideoCard from "../videocard/VideoCard";
-import "./explorepage.css";
 
 export default function ExplorePage() {
 

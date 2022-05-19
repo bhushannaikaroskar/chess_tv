@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context";
-import { useDocumentTitle } from "../../utils/usDocumentTitle";
+import { useDocumentTitle } from "../../utils";
 import "./authpage.css"
 
 const guestCredentialsStyle = {

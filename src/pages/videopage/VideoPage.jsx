@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { VideoCard } from "../../components";
 import { useAuth, useHistory, useLikes, usePlaylist, useVideos, useWatchLater } from "../../context";
 import { getSubscribersString, getViewString } from "../../utils";
 import AddPlaylistModal from "../playlistpage/AddPlaylistModal";
 import SelectPlaylistModal from "../playlistpage/SelectPlaylistModal";
-import VideoCard from "../videocard/VideoCard";
 import "./videopage.css";
 
 export default function VideoPage() {
@@ -25,9 +25,10 @@ export default function VideoPage() {
 
     const handleHistory = async ()=>{
         if(auth.isAuthenticated){
+            // removes history video to add it to recently watched
             if(history.find( vid => vid._id === currentVideo._id)){
                 await removeFromHistory(currentVideo);
-            }
+            }   
             await addToHistory(currentVideo)
         }
     }

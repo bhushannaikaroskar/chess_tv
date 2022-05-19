@@ -1,6 +1,6 @@
 import React from "react";
+import { VideoCard } from "../../components";
 import { useWatchLater } from "../../context";
-import VideoCard from "../videocard/VideoCard";
 import "./watchlaterpage.css";
 
 export default function WatchLaterPage() {

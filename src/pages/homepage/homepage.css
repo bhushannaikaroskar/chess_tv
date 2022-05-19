@@ -28,6 +28,11 @@
     background-color: var(--COLOR-BLACK-ALPHA-2);
 }
 
+.grand-hero-content h1{
+    
+    color: var(--COLOR-TEXT-WHITE);
+}
+
 .hero-button {
     font-size: 2.4rem;
 }

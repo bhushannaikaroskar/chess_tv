@@ -6,6 +6,7 @@ export {default as LikeProvider} from "./LikeProvider";
 export {default as WatchLaterProvider} from "./WatchLaterProvider";
 export {default as HistoryProvider} from "./HistoryProvider";
 export {default as PlaylistProvider, usePlaylist} from "./PlaylistProvider"
+export {default as ThemeProvider, useTheme} from "./ThemeProvider" 
 export {useAuth} from "./AuthProvider"
 export {useVideos} from "./VideoProvider"
 export {useLikes} from "./LikeProvider"
