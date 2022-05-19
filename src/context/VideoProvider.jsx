@@ -2,33 +2,13 @@ import axios from "axios";
 import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { errorToast } from "../utils";
+import { initialVideoState, videoReducer } from "./reducers";
 import { useTheme } from "./ThemeProvider";
 
 const VideoContext = createContext();
 
-const initialState = {
-    videos: [],
-    filters: {
-        learn: false,
-        openings: false,
-        tournament: false,
-        advanced: false,
-    },
-};
-
 export default function VideoProvide({ children }) {
-    const [videoState, dispatchVideos] = useReducer((state, action) => {
-        switch (action.type) {
-            case "ADD_VIDEOS":
-                return { ...state, videos: [...action.payload.videos] };
-            case "TOGGLE_FILTERS":
-                return {...state,filters:{...state.filters, [action.payload.key]:!state.filters[action.payload.key]}}
-            case "RESET_FILTERS":
-                return { ...state,filters:{...initialState.filters} };
-            default:
-                return state;
-        }
-    }, initialState);
+    const [videoState, dispatchVideos] = useReducer(videoReducer, initialVideoState);
 
     const [modalId,setModalId] = useState("");
     const [searchValue,setSearchValue] = useState("");

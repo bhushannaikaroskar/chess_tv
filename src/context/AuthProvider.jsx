@@ -7,49 +7,13 @@ import {
     useState,
 } from "react";
 import { errorToast, successToast } from "../utils";
+import { authReducer } from "./reducers";
+import { initialAuthState } from "./reducers/authReducer";
 import { useTheme } from "./ThemeProvider";
 
 const AuthContext = createContext();
 
-const initialAuthState = {
-    isAuthenticated: false,
-    authToken: "",
-    user: {
-        firstName: "",
-        lastName: "",
-        email: "",
-    },
-};
-
 export default function AuthProvider({ children }) {
-    let email, firstName, lastName, _id;
-    const authReducer = (state, action) => {
-        switch (action.type) {
-            case "VERIFIED":
-                ({ email, firstName, lastName, _id } =
-                    action.payload.foundUser);
-                return {
-                    ...state,
-                    isAuthenticated: true,
-                    user: { email, firstName, lastName, _id },
-                    authToken: action.payload.token,
-                };
-            case "SIGNUP_VERIFIED":
-                ({ email, firstName, lastName, _id } =
-                    action.payload.createdUser);
-                return {
-                    ...state,
-                    isAuthenticated: true,
-                    user: { email, firstName, lastName, _id },
-                    authToken: action.payload.token,
-                };
-            case "RESET":
-                return { ...initialAuthState };
-            default:
-                return state;
-        }
-    };
-
     const [auth, dispatchAuth] = useReducer(authReducer, initialAuthState);
     const [error, setError] = useState();
     const { theme } = useTheme();
@@ -110,11 +74,11 @@ export default function AuthProvider({ children }) {
         successToast("Successfully logged out", theme);
     };
 
-    useEffect(()=>{
-        if(auth.isAuthenticated){
-            localStorage.setItem("chess-tv-user-auth",JSON.stringify(auth))
+    useEffect(() => {
+        if (auth.isAuthenticated) {
+            localStorage.setItem("chess-tv-user-auth", JSON.stringify(auth));
         }
-    },[auth])
+    }, [auth]);
 
     useEffect(() => {
         if (localStorage.getItem("chess-tv-user-auth")) {
@@ -125,7 +89,10 @@ export default function AuthProvider({ children }) {
             if (storedState.authToken) {
                 dispatchAuth({
                     type: "VERIFIED",
-                    payload: { token: storedState.authToken, foundUser:storedState.user },
+                    payload: {
+                        token: storedState.authToken,
+                        foundUser: storedState.user,
+                    },
                 });
             }
         }
