@@ -59,7 +59,7 @@ export const getSubscribersString = (views) => {
 };
 
 export const getDateDifferenceString = (dateString) => {
-    let [month,date,year] = dateString.split(" ")
+    let [month="",date="",year=""] = dateString.split(" ")
     date = date.substring(0,date.length-1)
 
     const monthString = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
@@ -67,22 +67,45 @@ export const getDateDifferenceString = (dateString) => {
 
     const todayDate = new Date();
 
-    if((todayDate.getFullYear() - year)>0){
-        const result = todayDate.getFullYear() - year;
+    let yearDiff = (todayDate.getFullYear() - year);
+    let monthDiff = (todayDate.getMonth() - month);
+    let dateDiff = (todayDate.getDate() - date);
+
+    if(dateDiff<0){
+        dateDiff+=30;
+        monthDiff--;
+    }
+    if(monthDiff<0){
+        monthDiff+=11;
+        yearDiff--;
+    }
+    
+
+    if(yearDiff>0){
+        const result = yearDiff;
         if(result === 1){
             return "a year ago"
         }else{
             return `${result} years ago`
         }
-    }else if((todayDate.getMonth() - month)>0){
-        const result = todayDate.getMonth() - month;
+    }else if(monthDiff>0 ){
+        const result = monthDiff;
         if(result === 1){
             return "a month ago"
         }else{
             return `${result} months ago`
         }
-    }else if((todayDate.getDate() - date)>0){
-        const result = todayDate.getDate() - date;
+    }else if(dateDiff>0 ){
+        const result = dateDiff;
+
+        if(result>=14){
+            return `${Math.floor(result/7)} weeks ago`
+        }
+
+        if(result>=7){
+            return `a week ago`
+        }
+
         if(result === 1){
             return "a day ago"
         }else{
