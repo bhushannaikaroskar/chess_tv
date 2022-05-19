@@ -2,10 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth, useHistory, usePlaylist, useVideos, useWatchLater } from "../../context";
 import "./videocard.css";
-import { getViewString } from "../../utils";
+import { getViewString,getDateDifferenceString } from "../../utils";
 
 export default function VideoCard({ video, isHistoryPage = false,setVideo=()=>{}, playlistId = false }) {
-    const { _id, title, videoThumbnail, channelName, channelThumbNail, views } =
+    const { _id, title, videoThumbnail, channelName, channelThumbNail, date, views } =
         video;
     const { modalId, toggleModal } = useVideos();
     const { watchLaterVideos, toggleWatchLater } = useWatchLater();
@@ -57,7 +57,7 @@ export default function VideoCard({ video, isHistoryPage = false,setVideo=()=>{}
                     <div className="grand-channel-name">{channelName}</div>
                     <div className="grand-channel-name">{`${getViewString(
                         views
-                    )} views . 8 months ago`}</div>
+                    )} views . ${getDateDifferenceString(date)}`}</div>
                 </div>
                 <button
                     className="grand-video-card-btn"
