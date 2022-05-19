@@ -70,9 +70,6 @@
         font-size: 56.25%;
     }
 
-    .grand-body {
-        grid-template-columns: 7rem 1fr;
-    }
 
     .cart-wrapper {
         flex-direction: column;
@@ -98,11 +95,18 @@
         background-color: var(--COLOR-SIDEBAR-BG);
     }
 
-    .grand-filter .btn-nav-text{
-        display: none;
-    }
 
     .grand-body .navbar-responsive .nav-items .nav-hamburger {
         display: block;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .grand-body {
+        grid-template-columns: 7rem 1fr;
+    }
+
+    .grand-filter .btn-nav-text{
+        display: none;
     }
 }
