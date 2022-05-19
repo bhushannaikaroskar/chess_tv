@@ -25,9 +25,10 @@ export default function VideoPage() {
 
     const handleHistory = async ()=>{
         if(auth.isAuthenticated){
+            // removes history video to add it to recently watched
             if(history.find( vid => vid._id === currentVideo._id)){
                 await removeFromHistory(currentVideo);
-            }
+            }   
             await addToHistory(currentVideo)
         }
     }

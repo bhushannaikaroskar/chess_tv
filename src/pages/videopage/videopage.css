@@ -64,7 +64,7 @@
     border: 0;
     background-color: transparent;
     cursor: pointer;
-    border-radius: 99px;
+    border-radius: 10rem;
     padding: 5px;
     color: var(--DARK-GREY);
 }
@@ -80,7 +80,7 @@
     width: 100%;
     max-width: 6rem;
     aspect-ratio: 1/1;
-    border-radius: 99px;
+    border-radius: 10rem;
 }
 
 .grand-video-channel-content{
