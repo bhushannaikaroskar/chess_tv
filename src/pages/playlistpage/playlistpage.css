@@ -18,6 +18,10 @@
     gap: 1rem;
 }
 
+.playlist-options .btn{
+    color: var(--COLOR-TEXT-BLACK);
+}
+
 .playlist-video-container {
     grid-area: list;
     display: flex;
@@ -124,4 +128,18 @@
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
     width: 3px;
+}
+
+
+@media screen and (max-width:768px) {
+    
+    .playlist-grid{
+        grid-template-areas: "options" "list";
+        grid-template-columns: auto;
+    }
+
+    .playlist-video-container{
+        margin: 2rem 0;
+        padding: 0;
+    }
 }
