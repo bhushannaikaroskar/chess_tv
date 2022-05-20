@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# Chess TV
+<div align="center">
+<img alt="chess_tv" src="public/images/logo/light.png"  />
+</div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<br>
 
-## Available Scripts
+Chess TV is a curated video library platform that provides videos on learning chess. Beginners, intermediate and advanced players can use this platform to upskill their gameplay and improve it.   
 
-In the project directory, you can run:
 
-### `npm start`
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Live Website: [ChessTV](https://chess-tv.netlify.app/)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br>
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Navbar
 
-### `npm run build`
+- Navbar provides navigation to Homepage, loginpage and Searchbar.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- You can also toggle to dark them using this mode.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2. Homepage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Homepage displays some categories of videos.
 
-### `npm run eject`
+- Clicking on categories redirects you to explore page with the selected category.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Clicking on **Explore** redirects you to explore page. 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3. Sidebar
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Sidebar contains navigation to Explore page, liked videos, playlist, watch later and history.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 3. Explore Page
 
-## Learn More
+- On Explore page you can filter videos according to categories.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- You can add those videos on explore page to watch later and playlist through the options provided
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+### 4. Single Video Page.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Clicking on the video card redirects you to the Single Video page.
 
-### Analyzing the Bundle Size
+- Here you can like video, add them to watch later and also add them to playlist.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- On this page you can also see a section of similar video based on the categories.
 
-### Making a Progressive Web App
+### 5. Playlist Page
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Playlist page contains all the available playlists.
 
-### Advanced Configuration
+- You can add playlist delete playlist. Also you can remove videos from playlist and delete entire playlist.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 6. Liked Video page.
 
-### Deployment
+- All the videos you have liked appears on this page.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 7. Watch Later
 
-### `npm run build` fails to minify
+- All the videos added to watch later are displayed here.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- You can also remove single videos from watch later.
+
+### 8. History.
+
+- This page contains all you video you have recently watched.
+
+- You can remove single video from the history or clear entire history at once.
+
+### 9 Login and Signup
+
+- Login And Sign up pages are used for authenticating user.
+
+- In case of error it will display the required message.
+
+<br>
+
+*(Note: Chess TV runs on a mock backend. This means that the instance of server created is temporary and on refreshing the page the previous state is gone. So do not reload at any time while using the site or it will load a new instance of server. )*
