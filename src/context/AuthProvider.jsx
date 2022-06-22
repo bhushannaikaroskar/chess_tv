@@ -75,12 +75,6 @@ export default function AuthProvider({ children }) {
     };
 
     useEffect(() => {
-        if (auth.isAuthenticated) {
-            localStorage.setItem("chess-tv-user-auth", JSON.stringify(auth));
-        }
-    }, [auth]);
-
-    useEffect(() => {
         if (localStorage.getItem("chess-tv-user-auth")) {
             const storedState = JSON.parse(
                 localStorage.getItem("chess-tv-user-auth")
@@ -97,6 +91,15 @@ export default function AuthProvider({ children }) {
             }
         }
     }, []);
+    
+    useEffect(() => {
+        if (auth.isAuthenticated) {
+            localStorage.setItem("chess-tv-user-auth", JSON.stringify(auth));
+        }else{
+            localStorage.setItem("chess-tv-user-auth", JSON.stringify(auth));
+
+        }
+    }, [auth]);
 
     return (
         <AuthContext.Provider
