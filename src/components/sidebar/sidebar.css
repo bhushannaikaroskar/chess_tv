@@ -20,3 +20,7 @@
 .btn-nav:hover{
     background-color: var(--COLOR-SHADOW-PRIMARY);
 }
+
+.btn-nav.btn-nav-active{
+    background-color: var(--COLOR-SHADOW-PRIMARY-400);
+}
