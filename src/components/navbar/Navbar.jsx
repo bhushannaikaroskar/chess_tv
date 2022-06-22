@@ -29,7 +29,7 @@ export default function NavBar({isVisible}) {
                 </NavLink>
                 <div className="badge-container account flex flex-column">
                     <NavLink
-                        className="btn btn-link-secondary justify-content-start font-color-gray"
+                        className={`btn btn-link-secondary justify-content-start font-color-gray ${auth.isAuthenticated?"disable-events":""}`}
                         to="/login"
                         onClick={()=>setSearchValue("")}
                     >

@@ -7,7 +7,7 @@ export default function RestrictedRoute() {
     const location = useLocation();
 
     return auth.isAuthenticated ? (
-        <Navigate to="/" state={{ from: location }} replace />
+        <Navigate to={location?.state?.from?.pathname ?? "/"} replace />
     ) : (
         <Outlet />
     );
