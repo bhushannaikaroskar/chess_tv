@@ -11,7 +11,9 @@ export default function SearchBar() {
     const location = useLocation();
 
     const searchHandler = (e) =>{
-        if(e.code === "Enter"){
+        console.log(e)
+        if(e.code === "Enter" || e.target.parentElement.className === "search-button"){
+            
             console.log(value)
             setSearchValue(value)
             setValue("")
@@ -25,7 +27,6 @@ export default function SearchBar() {
         <div
             className="nav-search-container"
         >
-            <SearchIcon/>
             <input
                 style={{ width: "100%" }}
                 type="search"
@@ -35,6 +36,10 @@ export default function SearchBar() {
                 onChange={(e)=>setValue(e.target.value)}
                 onKeyDownCapture={searchHandler}
             />
+            
+            <button className="search-button" onClick={searchHandler}>
+            <SearchIcon/>
+            </button>
         </div>
     );
 }

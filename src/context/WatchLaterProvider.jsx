@@ -25,7 +25,9 @@ export default function WatchLaterProvider({ children }) {
             setWatchLaterVideos([...res.data.watchlater])
             setLoader(false);
         }).catch((err)=>{
-            errorToast("Some error while adding to Watch later",theme)
+            auth.isAuthenticated
+                ? errorToast("Some error while adding to Watch later",theme)
+                : errorToast("Login to add video to Watch later",theme)
             setLoader(false)
         })
     }

@@ -14,7 +14,7 @@ export default function LikeProvider({children}) {
 
     const addLike = (video,setLoader=()=>{}) => {
         if(!auth.isAuthenticated){
-            console.log("User is not Authenticated")
+            errorToast("Login to like the video",theme)
             return;
         }
         setLoader(true);
@@ -31,13 +31,14 @@ export default function LikeProvider({children}) {
             setLoader(false)
         }).catch((err)=>{
             console.log(err)
+            errorToast("Some message",theme)
             setLoader(false)
         })
     }
 
     const getLikes = () => {
         if(!auth.isAuthenticated){
-            console.log("User is not Authenticated")
+            errorToast("Login to Like the video",theme)
             return
         }
         axios.request({
@@ -50,13 +51,13 @@ export default function LikeProvider({children}) {
         }).then((res)=>{
             setLikedVideos([...res.data.likes])
         }).catch((err)=>{
-            errorToast("Liked video",theme)
+            errorToast("Error while fetching Liked Videos",theme)
         })
     }
 
     const deleteLike = (video,setLoader=()=>{}) => {
         if(!auth.isAuthenticated){
-            console.log("User is not Authenticated")
+            errorToast("User is not Authenticated",theme)
             return
         }
         setLoader(true);

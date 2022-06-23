@@ -32,3 +32,16 @@
 .disable-events{
     pointer-events: none;
 }
+
+.search-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+}
+
+.nav-search-icon{
+    padding: 0 1rem 0 0;
+}
