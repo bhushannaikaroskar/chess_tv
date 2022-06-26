@@ -56,7 +56,6 @@ export default function SelectPlaylistModal({ video }) {
                     className="btn btn-primary"
                     onClick={() => {
                         setCreatePlaylistModal((s) => !s);
-                        setShowPlaylistModal((s) => !s);
                     }}
                 >
                     Create Playlist

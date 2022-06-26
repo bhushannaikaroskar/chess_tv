@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { VideoCard } from "../../components";
 import { useAuth, useHistory, useLikes, usePlaylist, useVideos, useWatchLater } from "../../context";
 import { getSubscribersString, getViewString } from "../../utils";
@@ -15,6 +15,8 @@ export default function VideoPage() {
     const { history, addToHistory, removeFromHistory } = useHistory();
     const {watchLaterVideos,toggleWatchLater } = useWatchLater()
     const { showPlaylistModal, createPlaylistModal,setShowPlaylistModal} = usePlaylist()
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const currentVideo = videoState.videos.find(
         (video) => video._id === videoId
@@ -30,6 +32,14 @@ export default function VideoPage() {
                 await removeFromHistory(currentVideo);
             }   
             await addToHistory(currentVideo)
+        }
+    }
+
+    const playlistHandler = ()=>{
+        if(auth.isAuthenticated){
+            setShowPlaylistModal(s=>!s);
+        }else{
+            navigate("/login",{state:{from:location}})
         }
     }
 
@@ -74,7 +84,7 @@ export default function VideoPage() {
                                     Watch Later
                                 </div>
                                 <div className="grand-item">
-                                    <button className="grand-video-btn" onClick={()=>{setShowPlaylistModal(s=>!s)}}>
+                                    <button className="grand-video-btn" onClick={playlistHandler}>
                                         <span className="material-icons">
                                             playlist_play
                                         </span>
