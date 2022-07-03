@@ -19,7 +19,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 makeServer();
 
 root.render(
-    <React.StrictMode>
+    <React.StrictMode> 
         <ThemeProvider>
             <AuthProvider>
                 <Router>
@@ -37,5 +37,5 @@ root.render(
                 </Router>
             </AuthProvider>
         </ThemeProvider>
-    </React.StrictMode>
+    </React.StrictMode> 
 );

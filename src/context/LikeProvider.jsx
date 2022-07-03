@@ -30,8 +30,7 @@ export default function LikeProvider({children}) {
             setLikedVideos([...res.data.likes])
             setLoader(false)
         }).catch((err)=>{
-            console.log(err)
-            errorToast("Some message",theme)
+            errorToast("Some error occured while disliking the video",theme)
             setLoader(false)
         })
     }
@@ -73,7 +72,7 @@ export default function LikeProvider({children}) {
             setLikedVideos([...res.data.likes])
             setLoader(false)
         }).catch((err)=>{
-            console.log(err)
+            errorToast("Some error while disliking video",theme);
             setLoader(false)
         })
     }

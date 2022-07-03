@@ -6,6 +6,7 @@
     border-radius: 1rem;
     width: 100%;
     overflow: hidden;
+    outline: 1px solid var(--GREY);
 }
 
 .grand-hero-img {
@@ -22,15 +23,14 @@
     height: 100%;
     position: absolute;
     top: 0;
-    backdrop-filter: blur(5px);
     width: 100%;
     color: var(--COLOR-TEXT-WHITE);
     background-color: var(--COLOR-BLACK-ALPHA-2);
 }
 
 .grand-hero-content h1{
-    
     color: var(--COLOR-TEXT-WHITE);
+    text-align: center;
 }
 
 .hero-button {
@@ -66,6 +66,7 @@
     overflow: hidden;
     border-radius: 1rem;
     width: 100%;
+    outline: 1px solid var(--GREY);
 }
 
 .card-img {
@@ -80,7 +81,6 @@
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    backdrop-filter: blur(5px);
     color: var(--COLOR-TEXT-WHITE);
     background-color: var(--COLOR-BLACK-ALPHA-3);
     position: absolute;

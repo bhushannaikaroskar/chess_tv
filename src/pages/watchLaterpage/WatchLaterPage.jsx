@@ -1,10 +1,13 @@
 import React from "react";
 import { VideoCard } from "../../components";
 import { useWatchLater } from "../../context";
+import { useDocumentTitle } from "../../utils";
 import "./watchlaterpage.css";
 
 export default function WatchLaterPage() {
     const { watchLaterVideos } = useWatchLater();
+    useDocumentTitle("Watch Later");
+    
     return (
         <main className="grand-main">
             <h2 className="p-y-1">Watch Later</h2>

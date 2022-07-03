@@ -10,13 +10,10 @@ export default function RestrictedRoute() {
     const location = useLocation();
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            if (!auth.isAuthenticated && location.state.from.pathname) {
-                errorToast("Login to access all features", theme);
-            }
-        }, 0);
-        return () => clearTimeout(timeout);
-    },[location]);
+        if (!auth.isAuthenticated && location.state.from.pathname) {
+            errorToast("Login to access all features", theme);
+        }
+    }, [location]);
 
     return auth.isAuthenticated ? (
         <Navigate to={location?.state?.from?.pathname ?? "/"} replace />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { VideoCard } from "../../components";
 import { usePlaylist } from "../../context";
+import { useDocumentTitle } from "../../utils";
 import AddPlaylistModal from "./AddPlaylistModal";
 
 const styleObj = {
@@ -17,6 +18,7 @@ export default function PlaylistPage() {
     const [selectedPlaylist, setSelectedPlaylist] = useState(
         playlist.length > 0 ? playlist[0].title : ""
     );
+    useDocumentTitle("Playlist ")
 
     const switchPlaylist = (playlistId) => {
         setSelectedPlaylist(playlistId);
@@ -41,7 +43,6 @@ export default function PlaylistPage() {
             setSelectedPlaylist("");
         }
     }, [playlist]);
-    console.log(playlist);
 
     return (
         <main className="grand-main">
@@ -82,8 +83,8 @@ export default function PlaylistPage() {
                             <h1>
                                 {
                                     playlist.find(
-                                        (playlis) =>
-                                            playlis._id === selectedPlaylist
+                                        (playlist) =>
+                                            playlist._id === selectedPlaylist
                                     )?.title
                                 }
                             </h1>

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { VideoCard } from "../../components";
 import { useAuth, useHistory, useLikes, usePlaylist, useVideos, useWatchLater } from "../../context";
-import { getSubscribersString, getViewString } from "../../utils";
+import { getSubscribersString, getViewString, useDocumentTitle } from "../../utils";
 import AddPlaylistModal from "../playlistpage/AddPlaylistModal";
 import SelectPlaylistModal from "../playlistpage/SelectPlaylistModal";
 import "./videopage.css";
@@ -17,6 +17,7 @@ export default function VideoPage() {
     const { showPlaylistModal, createPlaylistModal,setShowPlaylistModal} = usePlaylist()
     const navigate = useNavigate();
     const location = useLocation();
+    useDocumentTitle("Video Page")
 
     const currentVideo = videoState.videos.find(
         (video) => video._id === videoId

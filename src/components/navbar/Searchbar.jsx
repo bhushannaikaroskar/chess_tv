@@ -11,10 +11,7 @@ export default function SearchBar() {
     const location = useLocation();
 
     const searchHandler = (e) =>{
-        console.log(e)
         if(e.code === "Enter" || e.target.parentElement.className === "search-button"){
-            
-            console.log(value)
             setSearchValue(value)
             setValue("")
             if(location.pathname !== "/explore"){

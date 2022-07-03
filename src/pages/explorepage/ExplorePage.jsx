@@ -4,12 +4,14 @@ import { VideoCard } from "../../components";
 import "./explorepage.css";
 import AddPlaylistModal from "../playlistpage/AddPlaylistModal";
 import SelectPlaylistModal from "../playlistpage/SelectPlaylistModal";
+import { useDocumentTitle } from "../../utils";
 
 export default function ExplorePage() {
 
     const {videoState,videoFilter,dispatchVideos} = useVideos();
     const {createPlaylistModal,showPlaylistModal} = usePlaylist();
     const [selectedVideo,setSelectedVideo] = useState(null);
+    useDocumentTitle("Explore")
 
     return (
         <main className="grand-main">

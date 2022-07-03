@@ -1,10 +1,12 @@
 import React from "react";
 import { VideoCard } from "../../components";
 import { useLikes } from "../../context";
+import { useDocumentTitle } from "../../utils";
 import "./likedvideopage.css";
 
 export default function LikedVideosPage() {
     const { likedVideos } = useLikes();
+    useDocumentTitle("Liked Videos")
 
     return (
         <main className="grand-main">

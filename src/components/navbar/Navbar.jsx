@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import SearchBar from "./Searchbar";
 import Logo from "./logo";
 import "./navbar.css"
@@ -11,6 +11,7 @@ export default function NavBar({isVisible}) {
 
     const { setSearchValue} = useVideos();
     const {auth,logout} = useAuth();
+    const location = useLocation();
     const {theme,toggle} = useTheme();
  
     return (
@@ -30,7 +31,7 @@ export default function NavBar({isVisible}) {
                 <div className="badge-container account flex flex-column">
                     <NavLink
                         className={`btn btn-link-secondary justify-content-start font-color-gray ${auth.isAuthenticated?"disable-events":""}`}
-                        to="/login"
+                        to="/login" state={{from:location}}
                         onClick={()=>setSearchValue("")}
                     >
                         <AccountIcon />

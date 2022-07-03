@@ -1,10 +1,12 @@
 import React from "react";
 import { VideoCard } from "../../components";
 import { useHistory } from "../../context";
+import { useDocumentTitle } from "../../utils";
 import "./historypage.css";
 
 export default function HistoryPage() {
     const { history, clearHistory } = useHistory();
+    useDocumentTitle("History")
 
     return (
         <main className="grand-main">
