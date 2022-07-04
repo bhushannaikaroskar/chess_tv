@@ -8,10 +8,12 @@ import { useDocumentTitle } from "../../utils";
 
 export default function ExplorePage() {
 
-    const {videoState,videoFilter,dispatchVideos} = useVideos();
+    const {videoState,videoFilter,dispatchVideos,searchValue} = useVideos();
     const {createPlaylistModal,showPlaylistModal} = usePlaylist();
     const [selectedVideo,setSelectedVideo] = useState(null);
     useDocumentTitle("Explore")
+
+    const videoList = videoFilter(videoState);
 
     return (
         <main className="grand-main">
@@ -32,10 +34,17 @@ export default function ExplorePage() {
                     <div className="font-black">advanced chess</div>
                 </button>
             </div>
+            {searchValue  && <div className="font-normal">Showing results for {<b className="font-large">{searchValue}</b>}</div>}
             <div className="grand-video-list">
-                {videoFilter(videoState).map((video)=>{
+                {videoList.map((video)=>{
                     return <VideoCard video={video} setVideo={setSelectedVideo}/>
                 })}
+                {videoList.length === 0 && <div className="grand-empty">
+                        {/* <img className="grand-empty-img" src="/images/search_result.png" alt="" /> */}
+                        <div className=" font-x-large">
+                            Search not found.
+                        </div>
+                    </div>}
             </div>
             
             {showPlaylistModal && <SelectPlaylistModal video={selectedVideo}/>}

@@ -31,4 +31,5 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
+    min-height: 80%;
 }

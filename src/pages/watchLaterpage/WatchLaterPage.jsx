@@ -15,9 +15,12 @@ export default function WatchLaterPage() {
                 {watchLaterVideos.length > 0 ? (
                     watchLaterVideos.map((vid) => <VideoCard video={vid} />)
                 ) : (
-                    <div className=" font-large">
+                    <div className="grand-empty">
+                    <img className="grand-empty-img" src="/images/spaceship.png" alt="" />
+                    <div className=" font-x-large">
                         No videos found. Add some videos to watch later.
                     </div>
+                </div>
                 )}
             </div>
         </main>

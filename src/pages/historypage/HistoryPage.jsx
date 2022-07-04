@@ -25,6 +25,7 @@ export default function HistoryPage() {
                 {[...history].reverse().map((video) => (
                     <VideoCard video={video} isHistoryPage={true}/>
                 ))}
+                {history.length === 0  && <div className="font-large">No videos in History</div>}
             </div>
         </main>
     );
