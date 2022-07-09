@@ -27,7 +27,7 @@ export default function HistoryProvider({ children }) {
                 setHistory([...res.data.history]);
             })
             .catch((err) => {
-                errorToast("Some error occured while fetching history")
+                errorToast("Some error occured while fetching history",theme)
             });
     };
 
@@ -49,7 +49,7 @@ export default function HistoryProvider({ children }) {
                 setHistory([...res.data.history]);
             })
             .catch((err) => {
-                errorToast("Some error occured while adding history")
+                errorToast("Some error occured while adding history",theme)
             });
     };
 

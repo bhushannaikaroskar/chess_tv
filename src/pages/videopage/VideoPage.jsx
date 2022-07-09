@@ -14,7 +14,7 @@ export default function VideoPage() {
     const { auth } = useAuth();
     const { history, addToHistory, removeFromHistory } = useHistory();
     const {watchLaterVideos,toggleWatchLater } = useWatchLater()
-    const { showPlaylistModal, createPlaylistModal,setShowPlaylistModal} = usePlaylist()
+    const { setSelectedVideo,setShowPlaylistModal} = usePlaylist()
     const navigate = useNavigate();
     const location = useLocation();
     useDocumentTitle("Video Page")
@@ -46,6 +46,7 @@ export default function VideoPage() {
 
     useEffect(()=>{
         handleHistory()
+        setSelectedVideo(currentVideo)
     },[videoId])
 
     return (
@@ -126,8 +127,8 @@ export default function VideoPage() {
                 "Loading Video"
             )}
             
-            {showPlaylistModal && <SelectPlaylistModal video={currentVideo}/>}
-            {createPlaylistModal && <AddPlaylistModal/>}
+            {/* {showPlaylistModal && <SelectPlaylistModal video={currentVideo}/>}
+            {createPlaylistModal && <AddPlaylistModal/>} */}
         </main>
     );
 }

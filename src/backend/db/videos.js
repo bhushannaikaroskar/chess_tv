@@ -241,7 +241,7 @@ export const videos = [
         category: "openings",
         channelName: "Coach Kestony",
         channelThumbNail:
-            "https://yt3.ggpht.com/Ww6K8EQFn84Nug-jJ3SScpiXykRyMezVRZp1swd0pOaRGO5NV1IKb0-luXe4rRcMD5hcmtgNbg=s88-c-k-c0x00ffffff-no-rj",
+            "https://yt3.ggpht.com/Kq0Xb-Rw2Q1GOBhFIGGKGZp8mcZoJfmV5tgHVI7IWJGcGdgby8eUEM8-JaPrVV9AbT1XvAnq=s176-c-k-c0x00ffffff-no-rj-mo",
         subscribers: "10783",
         description: [
             "In this video I will teach you top 5 best chess opening rules, principles and concepts that will help you get good positions in openings for the white pieces and openings for the black pieces. These opening strategies are the best for beginners to win more games.",

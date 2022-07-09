@@ -91,14 +91,9 @@ export default function AuthProvider({ children }) {
             }
         }
     }, []);
-    
-    useEffect(() => {
-        if (auth.isAuthenticated) {
-            localStorage.setItem("chess-tv-user-auth", JSON.stringify(auth));
-        }else{
-            localStorage.setItem("chess-tv-user-auth", JSON.stringify(auth));
 
-        }
+    useEffect(() => {
+        localStorage.setItem("chess-tv-user-auth", JSON.stringify(auth));
     }, [auth]);
 
     return (
