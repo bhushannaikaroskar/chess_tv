@@ -18,6 +18,10 @@ import {
     Sidebar,
     NavBar,} from "./components"
 import VideoPage from "./pages/videopage/VideoPage";
+import { createPortal } from "react-dom";
+import PlaylistModal from "./components/PlaylistModal";
+
+const ReactPortal = ()=>createPortal(<PlaylistModal/>,document.getElementById("modal-root"))
 
 function App() {
     return (
@@ -41,7 +45,9 @@ function App() {
                     <Route path="/playlist" element={<PlaylistPage />} />
                 </Route>
             </Routes>
+            
             <ToastContainer position="bottom-right" />
+            <ReactPortal/>
         </div>
     );
 }

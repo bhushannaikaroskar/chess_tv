@@ -1,12 +1,37 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useVideos } from "../../context";
+import { useDocumentTitle } from "../../utils";
 import "./homepage.css";
+
+const categoryData = [
+    {
+        name:"Tournament",
+        category:"tournament",
+        imgSrc:"https://res.cloudinary.com/grandimages/image/upload/v1651560603/chess_tv/catgories/category_4_qq4grr.jpg"
+    },
+    {
+        name:"Learn",
+        category:"learn",
+        imgSrc:"https://res.cloudinary.com/grandimages/image/upload/v1651560516/chess_tv/catgories/category_1_u6a12h.png"
+    },
+    {
+        name:"Chess Openings",
+        category:"openings",
+        imgSrc:"https://res.cloudinary.com/grandimages/image/upload/v1651560515/chess_tv/catgories/category_2_geohci.jpg"
+    },
+    {
+        name:"Advanced",
+        category:"advanced",
+        imgSrc:"https://res.cloudinary.com/grandimages/image/upload/v1651560514/chess_tv/catgories/category_3_ouknpf.jpg"
+    },
+]
 
 export default function HomePage() {
 
     const navigate = useNavigate();
     const { dispatchVideos } = useVideos()
+    useDocumentTitle("Home")
 
     const categoryHandler = (keyValue) => {
         dispatchVideos({type:"RESET_FILTERS"})
@@ -30,22 +55,15 @@ export default function HomePage() {
             </div>
             <h2 className="category-header">Categories</h2>
             <div className="grand-categories">
-                <div className="card-categories" onClick={()=>{categoryHandler("tournament")}}>
-                    <img className="card-img" src="https://res.cloudinary.com/grandimages/image/upload/v1651560603/chess_tv/catgories/category_4_qq4grr.jpg" alt="category" />
-                    <span className="card-container-text">Tournament</span>
-                </div>
-                <div className="card-categories" onClick={()=>{categoryHandler("learn")}}>
-                    <img className="card-img" src="https://res.cloudinary.com/grandimages/image/upload/v1651560516/chess_tv/catgories/category_1_u6a12h.png" alt="category" />
-                    <span className="card-container-text">Learn</span>
-                </div>
-                <div className="card-categories" onClick={()=>{categoryHandler("openings")}}>
-                    <img className="card-img" src="https://res.cloudinary.com/grandimages/image/upload/v1651560515/chess_tv/catgories/category_2_geohci.jpg" alt="category" />
-                    <span className="card-container-text">Chess Openings</span>
-                </div>
-                <div className="card-categories" onClick={()=>{categoryHandler("advanced")}}>
-                    <img className="card-img" src="https://res.cloudinary.com/grandimages/image/upload/v1651560514/chess_tv/catgories/category_3_ouknpf.jpg"  alt="category"/>
-                    <span className="card-container-text">Advanced</span>
-                </div>
+            {
+                categoryData.map((categoryCard)=>{
+                    return (
+                        <div className="card-categories" onClick={()=>{categoryHandler(categoryCard.category)}}>
+                            <img className="card-img" src={categoryCard.imgSrc} alt="category" />
+                            <span className="card-container-text">{categoryCard.name}</span>
+                        </div>)
+                })
+            }
             </div>
         </main>
     );

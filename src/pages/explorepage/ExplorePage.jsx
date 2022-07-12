@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { usePlaylist, useVideos } from "../../context";
+import React from "react";
+import { useVideos } from "../../context";
 import { VideoCard } from "../../components";
 import "./explorepage.css";
-import AddPlaylistModal from "../playlistpage/AddPlaylistModal";
-import SelectPlaylistModal from "../playlistpage/SelectPlaylistModal";
+import { useDocumentTitle } from "../../utils";
 
 export default function ExplorePage() {
 
-    const {videoState,videoFilter,dispatchVideos} = useVideos();
-    const {createPlaylistModal,showPlaylistModal} = usePlaylist();
-    const [selectedVideo,setSelectedVideo] = useState(null);
+    const {videoState,videoFilter,dispatchVideos,searchValue} = useVideos();
+    useDocumentTitle("Explore")
+
+    const videoList = videoFilter(videoState);
 
     return (
         <main className="grand-main">
@@ -30,14 +30,18 @@ export default function ExplorePage() {
                     <div className="font-black">advanced chess</div>
                 </button>
             </div>
+            {searchValue  && <div className="font-normal">Showing results for {<b className="font-large">{searchValue}</b>}</div>}
             <div className="grand-video-list">
-                {videoFilter(videoState).map((video)=>{
-                    return <VideoCard video={video} setVideo={setSelectedVideo}/>
+                {videoList.map((video)=>{
+                    return <VideoCard video={video}/>
                 })}
+                
             </div>
-            
-            {showPlaylistModal && <SelectPlaylistModal video={selectedVideo}/>}
-            {createPlaylistModal && <AddPlaylistModal/>}
+            {videoList.length === 0 && <div className="grand-empty">
+                <div className=" font-x-large">
+                    Search not found.
+                </div>
+            </div>}
         </main>
     );
 }

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { VideoCard } from "../../components";
 import { useAuth, useHistory, useLikes, usePlaylist, useVideos, useWatchLater } from "../../context";
-import { getSubscribersString, getViewString } from "../../utils";
+import { getSubscribersString, getViewString, useDocumentTitle } from "../../utils";
 import AddPlaylistModal from "../playlistpage/AddPlaylistModal";
 import SelectPlaylistModal from "../playlistpage/SelectPlaylistModal";
 import "./videopage.css";
@@ -14,7 +14,10 @@ export default function VideoPage() {
     const { auth } = useAuth();
     const { history, addToHistory, removeFromHistory } = useHistory();
     const {watchLaterVideos,toggleWatchLater } = useWatchLater()
-    const { showPlaylistModal, createPlaylistModal,setShowPlaylistModal} = usePlaylist()
+    const { setSelectedVideo,setShowPlaylistModal} = usePlaylist()
+    const navigate = useNavigate();
+    const location = useLocation();
+    useDocumentTitle("Video Page")
 
     const currentVideo = videoState.videos.find(
         (video) => video._id === videoId
@@ -33,8 +36,17 @@ export default function VideoPage() {
         }
     }
 
+    const playlistHandler = ()=>{
+        if(auth.isAuthenticated){
+            setShowPlaylistModal(s=>!s);
+        }else{
+            navigate("/login",{state:{from:location}})
+        }
+    }
+
     useEffect(()=>{
         handleHistory()
+        setSelectedVideo(currentVideo)
     },[videoId])
 
     return (
@@ -74,7 +86,7 @@ export default function VideoPage() {
                                     Watch Later
                                 </div>
                                 <div className="grand-item">
-                                    <button className="grand-video-btn" onClick={()=>{setShowPlaylistModal(s=>!s)}}>
+                                    <button className="grand-video-btn" onClick={playlistHandler}>
                                         <span className="material-icons">
                                             playlist_play
                                         </span>
@@ -115,8 +127,8 @@ export default function VideoPage() {
                 "Loading Video"
             )}
             
-            {showPlaylistModal && <SelectPlaylistModal video={currentVideo}/>}
-            {createPlaylistModal && <AddPlaylistModal/>}
+            {/* {showPlaylistModal && <SelectPlaylistModal video={currentVideo}/>}
+            {createPlaylistModal && <AddPlaylistModal/>} */}
         </main>
     );
 }

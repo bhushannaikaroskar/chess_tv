@@ -1,17 +1,18 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth, useHistory, usePlaylist, useVideos, useWatchLater } from "../../context";
 import "./videocard.css";
 import { getViewString,getDateDifferenceString } from "../../utils";
 
-export default function VideoCard({ video, isHistoryPage = false,setVideo=()=>{}, playlistId = false }) {
+export default function VideoCard({ video, isHistoryPage = false, playlistId = false }) {
     const { _id, title, videoThumbnail, channelName, channelThumbNail, date, views } =
         video;
     const { modalId, toggleModal } = useVideos();
     const { watchLaterVideos, toggleWatchLater } = useWatchLater();
     const { removeFromHistory } = useHistory();
-    const { removeFromPlaylist, setShowPlaylistModal} = usePlaylist()
+    const { removeFromPlaylist, setShowPlaylistModal,setSelectedVideo} = usePlaylist()
     const navigate = useNavigate();
+    const location = useLocation()
     const {auth} = useAuth()
 
     const isWatchLater = watchLaterVideos.find((vid) => vid._id === video._id);
@@ -69,6 +70,7 @@ export default function VideoCard({ video, isHistoryPage = false,setVideo=()=>{}
                             {playlistId ? <button className="grand-video-options-button" onClick={()=>{
                                 if(!auth.isAuthenticated){
                                     navigate("/login")
+                                    return;
                                 }
                                 removeFromPlaylist(playlistId,video)
                                 }}>
@@ -78,9 +80,10 @@ export default function VideoCard({ video, isHistoryPage = false,setVideo=()=>{}
                                 Remove from Playlist
                             </button>:<button className="grand-video-options-button" onClick={()=>{
                                 if(!auth.isAuthenticated){
-                                    navigate("/login")
+                                    navigate("/login",{state:{from:location}})
+                                    return;
                                 }
-                                setVideo(video);
+                                setSelectedVideo(video);
                                 setShowPlaylistModal(s=>!s)}}>
                                 <span className="material-icons fw-400">
                                     playlist_play
@@ -89,7 +92,13 @@ export default function VideoCard({ video, isHistoryPage = false,setVideo=()=>{}
                             </button>}
                             <button
                                 className="grand-video-options-button"
-                                onClick={() => toggleWatchLater(video)}
+                                onClick={() => {
+                                    if(!auth.isAuthenticated){
+                                        navigate("/login",{state:{from:location}})
+                                        return
+                                    }
+                                    toggleWatchLater(video)
+                                }}
                             >
                                 <span className="material-icons">schedule</span>
                                 {isWatchLater

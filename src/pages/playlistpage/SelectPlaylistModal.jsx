@@ -6,7 +6,7 @@ export default function SelectPlaylistModal({ video }) {
     const { playlist, setShowPlaylistModal, setCreatePlaylistModal,addToPlaylist,removeFromPlaylist } = usePlaylist();
 
     const checkVideoPresent = (playlistObject,currVideo) => {
-        return playlistObject.videos.find((vid) => vid._id === currVideo._id)
+        return playlistObject.videos.find((vid) => vid._id === currVideo._id)?true:false
     }
 
     const togglePlaylistHandler = (playlistObject,currVideo)=>{
@@ -35,10 +35,8 @@ export default function SelectPlaylistModal({ video }) {
                                     id={obj._id}
                                     className="playlist-checkbox"
                                     type="checkbox"
-                                    checked={obj.videos.find(
-                                        (vid) => vid._id === video._id
-                                    )}
-                                    onClick={() => {togglePlaylistHandler(obj,video)}}
+                                    checked={checkVideoPresent(obj,video)}
+                                    onChange={() => {togglePlaylistHandler(obj,video)}}
                                 />
                                 <label
                                     className="playlist-checkbox-label"
@@ -56,7 +54,6 @@ export default function SelectPlaylistModal({ video }) {
                     className="btn btn-primary"
                     onClick={() => {
                         setCreatePlaylistModal((s) => !s);
-                        setShowPlaylistModal((s) => !s);
                     }}
                 >
                     Create Playlist

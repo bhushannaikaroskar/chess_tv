@@ -1,22 +1,35 @@
 import React from "react";
 import { VideoCard } from "../../components";
 import { useWatchLater } from "../../context";
+import { useDocumentTitle } from "../../utils";
 import "./watchlaterpage.css";
 
 export default function WatchLaterPage() {
     const { watchLaterVideos } = useWatchLater();
+    useDocumentTitle("Watch Later");
+
     return (
         <main className="grand-main">
-            <h2 className="p-y-1">Watch Later</h2>
+            <h2 className="p-y-1">Watch Later:</h2>
             <div className="grand-watch-later-list">
-                {watchLaterVideos.length > 0 ? (
-                    watchLaterVideos.map((vid) => <VideoCard video={vid} />)
-                ) : (
-                    <div className=" font-large">
-                        No videos found. Add some videos to watch later.
-                    </div>
-                )}
+                {watchLaterVideos.map((vid) => (
+                    <VideoCard video={vid} />
+                ))}
             </div>
+            {watchLaterVideos.length === 0 && (
+                <div className="grand-watch-later-empty">
+                    <div className="grand-empty">
+                        <img
+                            className="grand-empty-img"
+                            src="/images/spaceship.png"
+                            alt=""
+                        />
+                        <div className=" font-x-large">
+                            No videos found. Add some videos to watch later.
+                        </div>
+                    </div>
+                </div>
+            )}
         </main>
     );
 }

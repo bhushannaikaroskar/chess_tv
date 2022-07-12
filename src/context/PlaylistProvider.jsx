@@ -10,6 +10,7 @@ export default function PlaylistProvider({ children }) {
     const [playlist, setPlaylist] = useState([]);
     const [createPlaylistModal, setCreatePlaylistModal] = useState(false);
     const [showPlaylistModal, setShowPlaylistModal] = useState(false);
+    const [selectedVideo, setSelectedVideo] = useState("")
     const { auth } = useAuth();
     const {theme} = useTheme();
 
@@ -26,7 +27,6 @@ export default function PlaylistProvider({ children }) {
                 data: {},
             })
             .then((res) => {
-                console.log(res.data.playlists);
                 setPlaylist([...res.data.playlists]);
             })
             .catch((err) => {
@@ -106,7 +106,7 @@ export default function PlaylistProvider({ children }) {
                 ]);
             })
             .catch((err) => {
-                errorToast("Some error while adding video",theme)
+                errorToast(err.response.data.errors[0],theme)
             });
     };
 
@@ -145,7 +145,7 @@ export default function PlaylistProvider({ children }) {
     }, [auth]);
 
     return (
-        <PlaylistContext.Provider value={{ playlist, addPlaylist, removePlaylist, addToPlaylist, removeFromPlaylist,showPlaylistModal, setShowPlaylistModal, createPlaylistModal, setCreatePlaylistModal }}>
+        <PlaylistContext.Provider value={{ playlist, addPlaylist, removePlaylist, addToPlaylist, removeFromPlaylist,showPlaylistModal, setShowPlaylistModal, createPlaylistModal, setCreatePlaylistModal, selectedVideo, setSelectedVideo }}>
             {children}
         </PlaylistContext.Provider>
     );

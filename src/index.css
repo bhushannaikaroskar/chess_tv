@@ -65,6 +65,24 @@
     color: var(--OFF-BLACK);
 }
 
+
+.grand-empty{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    font-weight: 500;
+    font-size: 2.4rem;
+}
+
+.grand-empty-img{
+    object-fit: cover;
+    width: 30%;
+    min-width: 20rem;
+}
+
 @media only screen and (max-width: 768px) {
     :root {
         font-size: 56.25%;
@@ -99,6 +117,10 @@
     .grand-body .navbar-responsive .nav-items .nav-hamburger {
         display: block;
     }
+}
+
+.Toastify__toast-container{
+    font-size: 1.4rem;
 }
 
 @media only screen and (max-width: 1200px) {
