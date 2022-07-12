@@ -1,5 +1,5 @@
 import React from "react";
-import { usePlaylist, useVideos } from "../../context";
+import { useVideos } from "../../context";
 import { VideoCard } from "../../components";
 import "./explorepage.css";
 import { useDocumentTitle } from "../../utils";
@@ -35,12 +35,13 @@ export default function ExplorePage() {
                 {videoList.map((video)=>{
                     return <VideoCard video={video}/>
                 })}
-                {videoList.length === 0 && <div className="grand-empty">
-                        <div className=" font-x-large">
-                            Search not found.
-                        </div>
-                    </div>}
+                
             </div>
+            {videoList.length === 0 && <div className="grand-empty">
+                <div className=" font-x-large">
+                    Search not found.
+                </div>
+            </div>}
         </main>
     );
 }
