@@ -108,13 +108,12 @@ export default function PlaylistPage() {
                                     />
                                 )
                             )}
-                            {getSelectedPlaylistVideos(playlist).length ===
-                                0 && (
-                                <div className="playlist-video-container font-normal">
-                                    No videos in playlist.
-                                </div>
-                            )}
                         </div>
+                        {getSelectedPlaylistVideos(playlist).length === 0 && (
+                            <div className="playlist-video-container font-normal">
+                                No videos in playlist.
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

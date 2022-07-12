@@ -26,13 +26,6 @@
     background-color: var(--COLOR-SHADOW-PRIMARY-400);
 }
 
-.grand-video-list {
-    padding: 1rem 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-}
-
 .grand-video-list{
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(26rem,1fr));
