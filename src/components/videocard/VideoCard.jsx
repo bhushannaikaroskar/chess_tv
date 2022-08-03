@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth, useHistory, usePlaylist, useVideos, useWatchLater } from "../../context";
+import { useSelector } from "react-redux";
 import "./videocard.css";
 import { getViewString,getDateDifferenceString } from "../../utils";
 
@@ -13,7 +14,8 @@ export default function VideoCard({ video, isHistoryPage = false, playlistId = f
     const { removeFromPlaylist, setShowPlaylistModal,setSelectedVideo} = usePlaylist()
     const navigate = useNavigate();
     const location = useLocation()
-    const {auth} = useAuth()
+    // const {auth} = useAuth()
+    const auth = useSelector((state)=> state.auth)
 
     const isWatchLater = watchLaterVideos.find((vid) => vid._id === video._id);
 

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { errorToast, successToast } from "../utils";
 import { useAuth } from "./AuthProvider";
 import { useTheme } from "./ThemeProvider";
@@ -8,10 +9,13 @@ const HistoryContext = createContext();
 
 export default function HistoryProvider({ children }) {
     const [history, setHistory] = useState([]);
-    const { auth } = useAuth();
+    // const { auth } = useAuth();
+    const auth = useSelector((state)=> state.auth)
+
     const {theme} = useTheme()
 
     const getHistory = () => {
+        console.log(auth)
         if (!auth.isAuthenticated) {
             errorToast("User is not Authenticated",theme)
             return;

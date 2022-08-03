@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { errorToast, successToast } from "../utils";
 import { useAuth } from "./AuthProvider";
 import { useTheme } from "./ThemeProvider";
@@ -11,7 +12,8 @@ export default function PlaylistProvider({ children }) {
     const [createPlaylistModal, setCreatePlaylistModal] = useState(false);
     const [showPlaylistModal, setShowPlaylistModal] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState("")
-    const { auth } = useAuth();
+    // const { auth } = useAuth();
+    const auth = useSelector((state)=> state.auth)
     const {theme} = useTheme();
 
     const getPlaylists = () => {

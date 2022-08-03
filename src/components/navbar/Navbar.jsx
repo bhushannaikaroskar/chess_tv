@@ -5,15 +5,21 @@ import Logo from "./logo";
 import "./navbar.css"
 import {AccountIcon, DarkModeIcon, LightModeIcon} from "../icons/icons"
 import { useAuth, useTheme, useVideos } from "../../context";
+import { useSelector,useDispatch } from "react-redux";
+import { logout } from "../../feature/auth/authSlice";
 
 
 export default function NavBar({isVisible}) {
 
     const { setSearchValue} = useVideos();
-    const {auth,logout} = useAuth();
+    // const {auth,logout} = useAuth();
+    
+    const auth = useSelector((state)=> state.auth)
+    const dispatchAuth = useDispatch()
     const location = useLocation();
     const {theme,toggle} = useTheme();
  
+    // console.log(logout)
     return (
         <nav className={"grand-nav navbar navbar-responsive box-shadow-100 p-2_5 p-y-1 " + (isVisible?"grand-nav-absolute":"") }>
             <Logo />
@@ -39,7 +45,7 @@ export default function NavBar({isVisible}) {
 
                     {auth.isAuthenticated && (
                         <div className="account-modal">
-                            <button className="btn btn-link-secondary font-error" onClick={logout}>
+                            <button className="btn btn-link-secondary font-error" onClick={()=>dispatchAuth(logout())}>
                                 Logout
                             </button>
                         </div>

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { VideoCard } from "../../components";
 import { useAuth, useHistory, useLikes, usePlaylist, useVideos, useWatchLater } from "../../context";
+import {useDispatch,useSelector} from "react-redux";
 import { getSubscribersString, getViewString, useDocumentTitle } from "../../utils";
 import AddPlaylistModal from "../playlistpage/AddPlaylistModal";
 import SelectPlaylistModal from "../playlistpage/SelectPlaylistModal";
@@ -11,7 +12,8 @@ export default function VideoPage() {
     const { videoId } = useParams();
     const { videoState } = useVideos();
     const { likedVideos, toggleLike } = useLikes()
-    const { auth } = useAuth();
+    // const { auth } = useAuth();
+    const auth = useSelector((state)=>state.auth)
     const { history, addToHistory, removeFromHistory } = useHistory();
     const {watchLaterVideos,toggleWatchLater } = useWatchLater()
     const { setSelectedVideo,setShowPlaylistModal} = usePlaylist()

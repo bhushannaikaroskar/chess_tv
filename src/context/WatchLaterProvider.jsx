@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { errorToast, successToast } from "../utils";
 import { useAuth } from "./AuthProvider";
 import { useTheme } from "./ThemeProvider";
@@ -9,7 +10,8 @@ const WatchLaterContext = createContext();
 export default function WatchLaterProvider({ children }) {
 
     const [watchLaterVideos,setWatchLaterVideos] = useState([]);
-    const { auth} = useAuth();
+    // const { auth} = useAuth();
+    const auth = useSelector((state)=> state.auth)
     const {theme} = useTheme();
 
     const addWatchLaterVideo = (video,setLoader=()=>{}) => {

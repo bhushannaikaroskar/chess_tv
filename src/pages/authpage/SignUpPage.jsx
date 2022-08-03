@@ -1,15 +1,18 @@
 import React, { useReducer } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context";
+import {useDispatch,useSelector} from "react-redux";
 import { useDocumentTitle } from "../../utils/usDocumentTitle";
+import { signup } from "../../feature";
+import { useState } from "react";
 
 const initialObject = {
     email:"",
     password:"",
     emailError:false,
     passwordError:false,
-    acceptTerms:false,
-    termsError:false
+    // acceptTerms:false,
+    // termsError:false
 }
 
 const reducer = (state,action) => {
@@ -22,8 +25,8 @@ const reducer = (state,action) => {
             return {...state,emailError: action.payload.error}
         case "PASSWORD_ERROR":
             return {...state,passwordError: action.payload.error}
-        case "ACCEPT_TERMS":
-            return {...state,acceptTerms: action.payload.flag}
+        // case "ACCEPT_TERMS":
+        //     return {...state,acceptTerms: action.payload.flag}
         case "TERMS_ERROR":
             return {...state,termsError: action.payload.flag}
         default:
@@ -34,9 +37,12 @@ const reducer = (state,action) => {
 export default function SignUpPage() {
 
     const [state,dispatch] = useReducer(reducer,initialObject);
-    const {email,emailError,password,passwordError,acceptTerms,termsError} = state;
+    const {email,emailError,password,passwordError} = state;
+    const [isPasswordVisible,setIsPasswordVisible] = useState(false);
 
-    const { error, signUpUser } = useAuth();
+    // const { error, signUpUser } = useAuth();
+    const {error} = useSelector((state)=>state.auth)
+    const dispatchAuth = useDispatch()
     useDocumentTitle("Signup")
 
     const emailMatchPattern =
@@ -57,14 +63,14 @@ export default function SignUpPage() {
             dispatch({type:"PASSWORD_ERROR",payload:{error:false}});
         }
 
-        if (!acceptTerms) {
-            dispatch({type:"TERMS_ERROR",payload:{flag:true}})
-            return;
-        } else {
-            dispatch({type:"TERMS_ERROR",payload:{flag:false}})
-        }
+        // if (!acceptTerms) {
+        //     dispatch({type:"TERMS_ERROR",payload:{flag:true}})
+        //     return;
+        // } else {
+        //     dispatch({type:"TERMS_ERROR",payload:{flag:false}})
+        // }
 
-        signUpUser(email, password);
+        dispatchAuth(signup({email, password}));
     };
 
     return (
@@ -95,7 +101,7 @@ export default function SignUpPage() {
                         </label>
                         <input
                             id="password"
-                            type="password"
+                            type={isPasswordVisible?"text":"password"}
                             value={password}
                             className={`input-field ${passwordError?"input-color-error":""}`}
                             onChange={(e) => dispatch({type:"PASSWORD",payload:{password:e.target.value}})}
@@ -111,18 +117,18 @@ export default function SignUpPage() {
                             <input
                                 type="checkbox"
                                 name="show-password"
-                                checked={acceptTerms}
-                                onChange={(e) => dispatch({type:"ACCEPT_TERMS",payload:{flag:!acceptTerms}})}
+                                checked={isPasswordVisible}
+                                // onChange={(e) => dispatch({type:"ACCEPT_TERMS",payload:{flag:!acceptTerms}})}
+                                onChange={()=>setIsPasswordVisible(s=>!s)}
                             />{" "}
-                            <span className="p-0_5"> </span> I accept all Terms
-                            and Conditions
+                            <span className="p-0_5"> </span> Show Password
                         </label>
                     </div>
-                    {termsError && (
+                    {/* {termsError && (
                         <p className="font-error font-small">
                             "Please accept all terms and conditions"
                         </p>
-                    )}
+                    )} */}
                     <div className="p-1"></div>
                     <button
                         className="btn btn-primary w-100"

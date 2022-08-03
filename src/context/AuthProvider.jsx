@@ -22,8 +22,7 @@ export default function AuthProvider({ children }) {
         axios
             .request({
                 method: "post",
-                url: "/api/auth/login",
-                headers: { accept: "*/*" },
+                url: "/api/auth/login", 
                 data: {
                     email: email,
                     password: password,

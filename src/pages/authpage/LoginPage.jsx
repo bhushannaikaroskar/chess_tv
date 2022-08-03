@@ -2,7 +2,9 @@ import React, { useReducer } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context";
 import { useDocumentTitle } from "../../utils";
+import {useDispatch,useSelector} from "react-redux";
 import "./authpage.css"
+import { login } from "../../feature";
 
 const guestCredentialsStyle = {
     backgroundColor: "transparent",
@@ -44,13 +46,16 @@ export default function LoginPage() {
 
     useDocumentTitle("Login");
 
-    const { error, loginUser } = useAuth();
+    // const { error, loginUser } = useAuth();
+    const dispatchAuth = useDispatch()
+    const {error} = useSelector((state)=>state.auth)
+
 
     const useGuestCredentials = () => {
         dispatch({type:"EMAIL",payload:{email:"guestuser@gmail.com"}});
         dispatch({type:"PASSWORD",payload:{password:"guestcredentials123"}});
         setTimeout(
-            () => loginUser("guestuser@gmail.com", "guestcredentials123"),
+            () => dispatchAuth(login({email:"guestuser@gmail.com",password: "guestcredentials123"})),
             100
         );
     };
@@ -70,7 +75,7 @@ export default function LoginPage() {
             dispatch({type:"PASSWORD_ERROR",payload:{error:false}});;
         }
 
-        loginUser(email, password);
+        dispatchAuth(login({...state}));
     };
 
     return (
@@ -125,13 +130,13 @@ export default function LoginPage() {
                             />{" "}
                             <span className="p-0_5"> </span> Show Password
                         </label>
-                        <button
+                        {/* <button
                             style={guestCredentialsStyle}
                             className="btn-link-primary button-link fw-500"
                             onClick={useGuestCredentials}
                         >
                             Use Test Credentials
-                        </button>
+                        </button> */}
                     </div>
                     <div className="p-1"></div>
                     <button
@@ -139,6 +144,13 @@ export default function LoginPage() {
                         onClick={loginHandler}
                     >
                         Login
+                    </button>
+                    <div className="p-0_5"></div>
+                    <button
+                        className="btn btn-primary w-100"
+                        onClick={useGuestCredentials}
+                    >
+                        Use Test Credentials
                     </button>
                     {error && (
                         <div className="font-error font-small">
