@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { errorToast } from "../utils";
 import { initialVideoState, videoReducer } from "./reducers";
@@ -13,7 +14,7 @@ export default function VideoProvide({ children }) {
     const [modalId,setModalId] = useState("");
     const [searchValue,setSearchValue] = useState("");
     const location = useLocation()
-    const {theme} = useTheme()
+    const {theme} = useSelector((state) => state.theme)
 
     const fetchVideos = () => {
         axios.request({
@@ -43,6 +44,7 @@ export default function VideoProvide({ children }) {
         }else{
             setModalId(videoId);
         }
+         
     }
 
     const videoFilter = (state) => {

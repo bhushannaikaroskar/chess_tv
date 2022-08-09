@@ -7,16 +7,23 @@ import { getSubscribersString, getViewString, useDocumentTitle } from "../../uti
 import AddPlaylistModal from "../playlistpage/AddPlaylistModal";
 import SelectPlaylistModal from "../playlistpage/SelectPlaylistModal";
 import "./videopage.css";
+import { addToHistory, removeFromHistory, setSelectedVideo, setShowPlaylistModal, toggleLike, toggleWatchLater } from "../../feature";
 
 export default function VideoPage() {
     const { videoId } = useParams();
-    const { videoState } = useVideos();
-    const { likedVideos, toggleLike } = useLikes()
+    // const { videoState } = useVideos();
+    const videoState = useSelector(state => state.video)
+    // const { likedVideos, toggleLike } = useLikes()
+    const dispatch = useDispatch();
+    const {likedVideos} = useSelector(state => state.like) 
     // const { auth } = useAuth();
     const auth = useSelector((state)=>state.auth)
-    const { history, addToHistory, removeFromHistory } = useHistory();
-    const {watchLaterVideos,toggleWatchLater } = useWatchLater()
-    const { setSelectedVideo,setShowPlaylistModal} = usePlaylist()
+    // const { history, addToHistory, removeFromHistory } = useHistory();
+    const {history} = useSelector(state => state.history);
+    // const {watchLaterVideos,toggleWatchLater } = useWatchLater()
+    const {watchLaterVideos} = useSelector(state => state.watchlater)
+    // const { setSelectedVideo,setShowPlaylistModal} = usePlaylist()
+    const {showPlaylistModal} = useSelector(state => state.playlist)
     const navigate = useNavigate();
     const location = useLocation();
     useDocumentTitle("Video Page")
@@ -32,15 +39,16 @@ export default function VideoPage() {
         if(auth.isAuthenticated){
             // removes history video to add it to recently watched
             if(history.find( vid => vid._id === currentVideo._id)){
-                await removeFromHistory(currentVideo);
+                await dispatch(removeFromHistory({video:currentVideo}));
             }   
-            await addToHistory(currentVideo)
+            await dispatch(addToHistory({video:currentVideo}))
         }
     }
 
     const playlistHandler = ()=>{
         if(auth.isAuthenticated){
-            setShowPlaylistModal(s=>!s);
+            // setShowPlaylistModal(s=>!s);
+            dispatch(setShowPlaylistModal({value:!showPlaylistModal}));
         }else{
             navigate("/login",{state:{from:location}})
         }
@@ -48,7 +56,8 @@ export default function VideoPage() {
 
     useEffect(()=>{
         handleHistory()
-        setSelectedVideo(currentVideo)
+        // setSelectedVideo(currentVideo)
+        dispatch(setSelectedVideo({video:currentVideo}))
     },[videoId])
 
     return (
@@ -72,7 +81,7 @@ export default function VideoPage() {
                             </div>
                             <div className="grand-video-cta">
                                 <div className="grand-item">
-                                    <button className="grand-video-btn" onClick={()=>toggleLike(currentVideo)}>
+                                    <button className="grand-video-btn" onClick={()=>dispatch(toggleLike({video:currentVideo}))}>
                                         <span className={`material-icons ${isLiked?"font-primary":""}`}>
                                             thumb_up
                                         </span>
@@ -80,7 +89,7 @@ export default function VideoPage() {
                                     {getViewString(currentVideo.likes + (isLiked?1:0))}
                                 </div>
                                 <div className="grand-item">
-                                    <button className="grand-video-btn" onClick={()=>toggleWatchLater(currentVideo)}>
+                                    <button className="grand-video-btn" onClick={()=>dispatch(toggleWatchLater({video:currentVideo}))}>
                                         <span className={`material-icons ${isWatchLater?"font-primary":""}`}>
                                             schedule
                                         </span>

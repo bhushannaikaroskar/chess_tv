@@ -8,11 +8,11 @@ import { errorToast } from "../../utils";
 export default function RestrictedRoute() {
     // const { auth } = useAuth();
     const auth = useSelector((state)=> state.auth)
-    const { theme } = useTheme();
+    const { theme } = useSelector((state)=>state.theme);
     const location = useLocation();
 
     useEffect(() => {
-        if (!auth.isAuthenticated && location?.state?.from?.pathname) {
+        if (!auth.isAuthenticated && location?.state?.from?.pathname && !location?.state?.isLogin) {
             errorToast("Login to access all features", theme);
         }
     }, [location]);

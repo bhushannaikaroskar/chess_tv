@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { usePlaylist } from "../../context";
+import { addPlaylist, setCreatePlaylistModal, setShowPlaylistModal } from "../../feature";
 import "./playlistpage.css";
 
 export default function AddPlaylistModal() {
-    const {  setCreatePlaylistModal, addPlaylist } =
-        usePlaylist();
+    // const {  setCreatePlaylistModal, addPlaylist } =
+    //     usePlaylist();
+    const {createPlaylistModal} = useSelector(state => state.playlist)
+    const dispatch = useDispatch();
     const [playlistObject, setPlaylistObject] = useState({
         title: "",
         description: "",
@@ -31,11 +35,16 @@ export default function AddPlaylistModal() {
             setPlaylistObject((s) => ({ ...s, descriptionError: false }));
         }
 
-        addPlaylist(
-            playlistObject.title.trim(),
-            playlistObject.description.trim()
-        );
-        setCreatePlaylistModal((s) => !s);
+        // h(addPlaylist({
+        //     title:playlistObject.title.trim(),
+        //     description:playlistObject.description.trim()}
+        // ));
+        dispatch(addPlaylist({
+            title:playlistObject.title.trim(),
+            description:playlistObject.description.trim()}
+        ));
+        // setCreatePlaylistModal((s) => !s);
+        dispatch(setCreatePlaylistModal({value:!createPlaylistModal}))
     };
 
     return (
@@ -43,7 +52,7 @@ export default function AddPlaylistModal() {
             <div className="playlist-modal-card">
                 <button
                     className="playlist-modal-close"
-                    onClick={() => setCreatePlaylistModal(false)}
+                    onClick={() => dispatch(setCreatePlaylistModal({value:false}))}
                 >
                     <span className="material-icons">close</span>
                 </button>

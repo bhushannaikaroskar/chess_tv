@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { VideoCard } from "../../components";
 import { usePlaylist } from "../../context";
+import { setCreatePlaylistModal,removePlaylist } from "../../feature";
 import { useDocumentTitle } from "../../utils";
 import AddPlaylistModal from "./AddPlaylistModal";
 
@@ -9,12 +11,17 @@ const styleObj = {
 };
 
 export default function PlaylistPage() {
-    const {
-        playlist,
+    // const {
+        // playlist,
+        // createPlaylistModal,
+        // setCreatePlaylistModal,
+        // removePlaylist,
+    // } = usePlaylist();
+    const {playlist,
         createPlaylistModal,
-        setCreatePlaylistModal,
-        removePlaylist,
-    } = usePlaylist();
+        // setCreatePlaylistModal,
+        } = useSelector(state => state.playlist);
+        const dispatch = useDispatch();
     const [selectedPlaylist, setSelectedPlaylist] = useState(
         playlist.length > 0 ? playlist[0].title : ""
     );
@@ -52,7 +59,8 @@ export default function PlaylistPage() {
                     <button
                         className="btn btn-primary"
                         onClick={() => {
-                            setCreatePlaylistModal((s) => !s);
+                            // setCreatePlaylistModal((s) => !s);
+                            dispatch(setCreatePlaylistModal({value:!createPlaylistModal}))
                         }}
                     >
                         New Playlist
@@ -92,7 +100,7 @@ export default function PlaylistPage() {
                                 <button
                                     class="btn btn-outline btn-outline-primary"
                                     onClick={() =>
-                                        removePlaylist(selectedPlaylist)
+                                        dispatch(removePlaylist({playlistId:selectedPlaylist}))
                                     }
                                 >
                                     Delete playlist

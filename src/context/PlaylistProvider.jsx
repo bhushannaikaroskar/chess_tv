@@ -14,7 +14,7 @@ export default function PlaylistProvider({ children }) {
     const [selectedVideo, setSelectedVideo] = useState("")
     // const { auth } = useAuth();
     const auth = useSelector((state)=> state.auth)
-    const {theme} = useTheme();
+    const {theme} = useSelector(state => state.theme);
 
     const getPlaylists = () => {
         if (!auth.isAuthenticated) {

@@ -1,6 +1,8 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useVideos } from "../../context";
+import { resetFilters, toggleVideoFilter } from "../../feature";
 import { useDocumentTitle } from "../../utils";
 import "./homepage.css";
 
@@ -30,12 +32,15 @@ const categoryData = [
 export default function HomePage() {
 
     const navigate = useNavigate();
-    const { dispatchVideos } = useVideos()
+    // const { dispatchVideos } = useVideos()
+    const dispatch = useDispatch();
     useDocumentTitle("Home")
 
     const categoryHandler = (keyValue) => {
-        dispatchVideos({type:"RESET_FILTERS"})
-        dispatchVideos({type:"TOGGLE_FILTERS",payload:{key:keyValue}})
+        // dispatchVideos({type:"RESET_FILTERS"})
+        dispatch(resetFilters());
+        // dispatchVideos({type:"TOGGLE_FILTERS",payload:{key:keyValue}})
+        dispatch(toggleVideoFilter({key:keyValue}))
         navigate("/explore") 
     }
 

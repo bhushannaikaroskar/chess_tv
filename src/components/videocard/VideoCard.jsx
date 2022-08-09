@@ -1,21 +1,26 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth, useHistory, usePlaylist, useVideos, useWatchLater } from "../../context";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./videocard.css";
 import { getViewString,getDateDifferenceString } from "../../utils";
+import { removeFromHistory, removeFromPlaylist, setSelectedVideo, setShowPlaylistModal, toggleModal, toggleWatchLater } from "../../feature";
 
 export default function VideoCard({ video, isHistoryPage = false, playlistId = false }) {
     const { _id, title, videoThumbnail, channelName, channelThumbNail, date, views } =
         video;
-    const { modalId, toggleModal } = useVideos();
-    const { watchLaterVideos, toggleWatchLater } = useWatchLater();
-    const { removeFromHistory } = useHistory();
-    const { removeFromPlaylist, setShowPlaylistModal,setSelectedVideo} = usePlaylist()
+    // const { modalId, toggleModal } = useVideos();
+    const {modalId} = useSelector(state => state.video)
+    // const { watchLaterVideos, toggleWatchLater } = useWatchLater();
+    const {watchLaterVideos} = useSelector(state => state.watchlater)
+    // const { removeFromHistory } = useHistory();
+    // const { removeFromPlaylist, setShowPlaylistModal,setSelectedVideo} = usePlaylist()
+    const {showPlaylistModal} = useSelector(state=>state.playlist)
     const navigate = useNavigate();
     const location = useLocation()
     // const {auth} = useAuth()
     const auth = useSelector((state)=> state.auth)
+    const dispatch = useDispatch();
 
     const isWatchLater = watchLaterVideos.find((vid) => vid._id === video._id);
 
@@ -34,7 +39,7 @@ export default function VideoCard({ video, isHistoryPage = false, playlistId = f
                     </div>
                 )}
                 {isHistoryPage && (
-                    <button className="grand-video-img-close" onClick={()=>removeFromHistory(video)}>
+                    <button className="grand-video-img-close" onClick={()=>dispatch(removeFromHistory({video}))}>
                         <span className="material-icons-round grand-btn-lg">
                             delete
                         </span>
@@ -64,7 +69,8 @@ export default function VideoCard({ video, isHistoryPage = false, playlistId = f
                 </div>
                 <button
                     className="grand-video-card-btn"
-                    onClick={() => toggleModal(_id)}
+                    // onClick={() => toggleModal(_id)}
+                    onClick={() => dispatch(toggleModal({videoId:_id}))}
                 >
                     <span className="material-icons ">more_vert</span>
                     {modalId === _id && (
@@ -74,7 +80,8 @@ export default function VideoCard({ video, isHistoryPage = false, playlistId = f
                                     navigate("/login")
                                     return;
                                 }
-                                removeFromPlaylist(playlistId,video)
+                                // removeFromPlaylist(playlistId,video)
+                                dispatch(removeFromPlaylist({playlistId,video}))
                                 }}>
                                 <span className="material-icons fw-400">
                                     playlist_play
@@ -85,8 +92,10 @@ export default function VideoCard({ video, isHistoryPage = false, playlistId = f
                                     navigate("/login",{state:{from:location}})
                                     return;
                                 }
-                                setSelectedVideo(video);
-                                setShowPlaylistModal(s=>!s)}}>
+                                // setSelectedVideo(video);
+                                dispatch(setSelectedVideo({video}));
+                                // setShowPlaylistModal(s=>!s)}}>
+                                dispatch(setShowPlaylistModal({value:!showPlaylistModal}))}}>
                                 <span className="material-icons fw-400">
                                     playlist_play
                                 </span>
@@ -99,7 +108,9 @@ export default function VideoCard({ video, isHistoryPage = false, playlistId = f
                                         navigate("/login",{state:{from:location}})
                                         return
                                     }
-                                    toggleWatchLater(video)
+                                    // toggleWatchLater(video)
+                                    dispatch(toggleWatchLater({video}))
+
                                 }}
                             >
                                 <span className="material-icons">schedule</span>

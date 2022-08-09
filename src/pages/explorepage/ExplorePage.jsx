@@ -3,30 +3,36 @@ import { useVideos } from "../../context";
 import { VideoCard } from "../../components";
 import "./explorepage.css";
 import { useDocumentTitle } from "../../utils";
+import { useDispatch, useSelector } from "react-redux";
+import {resetFilters, toggleVideoFilter, videoFilter} from "../../feature"
 
 export default function ExplorePage() {
 
-    const {videoState,videoFilter,dispatchVideos,searchValue} = useVideos();
+    // const {videoState,videoFilter,dispatchVideos,searchValue} = useVideos();
+    const videoState = useSelector(state =>state.video)
+    const {searchValue} = videoState;
+    const dispatch = useDispatch();
     useDocumentTitle("Explore")
 
-    const videoList = videoFilter(videoState);
+    // const videoList = videoFilter(videoState);
+    const videoList = videoFilter(videoState)
 
     return (
         <main className="grand-main">
             <div className="grand-tags">
-                <button className={`grand-tag ${Object.values(videoState.filters).every(value => !value)?"grand-tag-active":""}`} onClick={()=>{dispatchVideos({type:"RESET_FILTERS"})}}>
+                <button className={`grand-tag ${Object.values(videoState.filters).every(value => !value)?"grand-tag-active":""}`} onClick={()=>{dispatch(resetFilters())}}>
                     <div className="font-black">All</div>
                 </button>
-                <button className={`grand-tag ${videoState.filters.learn?"grand-tag-active":""}`} onClick={()=>{dispatchVideos({type:"TOGGLE_FILTERS",payload:{key:"learn"}})}}>
+                <button className={`grand-tag ${videoState.filters.learn?"grand-tag-active":""}`} onClick={()=>dispatch(toggleVideoFilter({key:"learn"}))}>
                     <div className="font-black">learn</div>
                 </button>
-                <button className={`grand-tag ${videoState.filters.openings?"grand-tag-active":""}`} onClick={()=>{dispatchVideos({type:"TOGGLE_FILTERS",payload:{key:"openings"}})}}>
+                <button className={`grand-tag ${videoState.filters.openings?"grand-tag-active":""}`} onClick={()=>dispatch(toggleVideoFilter({key:"openings"}))}>
                     <div className="font-black">Chess openings</div>
                 </button>
-                <button className={`grand-tag ${videoState.filters.tournament?"grand-tag-active":""}`} onClick={()=>{dispatchVideos({type:"TOGGLE_FILTERS",payload:{key:"tournament"}})}}>
+                <button className={`grand-tag ${videoState.filters.tournament?"grand-tag-active":""}`} onClick={()=>dispatch(toggleVideoFilter({key:"tournament"}))}>
                     <div className="font-black">tournaments</div>
                 </button>
-                <button className={`grand-tag ${videoState.filters.advanced?"grand-tag-active":""}`} onClick={()=>{dispatchVideos({type:"TOGGLE_FILTERS",payload:{key:"advanced"}})}}>
+                <button className={`grand-tag ${videoState.filters.advanced?"grand-tag-active":""}`} onClick={()=>dispatch(toggleVideoFilter({key:"advanced"}))}>
                     <div className="font-black">advanced chess</div>
                 </button>
             </div>

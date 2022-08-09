@@ -7,19 +7,52 @@ import {AccountIcon, DarkModeIcon, LightModeIcon} from "../icons/icons"
 import { useAuth, useTheme, useVideos } from "../../context";
 import { useSelector,useDispatch } from "react-redux";
 import { logout } from "../../feature/auth/authSlice";
+import { useEffect } from "react";
+import { fetchVideos, getHistory, getLikes, getPlaylists, getWatchLaterVideo, resetFilters, resetHistory, resetLikes, resetPlaylist, resetWatchLater, setModalId, setSearchValue, toggleTheme } from "../../feature";
 
 
 export default function NavBar({isVisible}) {
 
-    const { setSearchValue} = useVideos();
+    // const { setSearchValue} = useVideos();
     // const {auth,logout} = useAuth();
     
     const auth = useSelector((state)=> state.auth)
-    const dispatchAuth = useDispatch()
+    const dispatch = useDispatch()
     const location = useLocation();
-    const {theme,toggle} = useTheme();
+    // const {theme,toggle} = useTheme();
+    const {theme} = useSelector((state)=>state.theme)
+
+    useEffect(()=>{
+        
+        if(auth.isAuthenticated){
+            dispatch(getLikes());
+            dispatch(getHistory());
+            dispatch(getPlaylists());
+            dispatch(getWatchLaterVideo());
+            
+        }else{
+            dispatch(resetLikes());
+            dispatch(resetHistory());
+            dispatch(resetPlaylist());
+            dispatch(resetWatchLater());
+        }
+    },[auth])
+
+    useEffect(()=>{
+        dispatch(setModalId({value:""}))
+        if(location.pathname !== "/explore"){
+            dispatch(resetFilters())
+            dispatch(setSearchValue({searchValue:""}))
+        }
+    },[location])
+
+    useEffect(()=>{
+        dispatch(fetchVideos())
+    },[])
  
-    // console.log(logout)
+    useEffect(()=>{
+        document.documentElement.setAttribute("data-theme", theme);
+    },[theme])
     return (
         <nav className={"grand-nav navbar navbar-responsive box-shadow-100 p-2_5 p-y-1 " + (isVisible?"grand-nav-absolute":"") }>
             <Logo />
@@ -37,7 +70,8 @@ export default function NavBar({isVisible}) {
                 <div className="badge-container account flex flex-column">
                     <NavLink
                         className={`btn btn-link-secondary justify-content-start font-color-gray ${auth.isAuthenticated?"disable-events":""}`}
-                        to="/login" state={{from:location}}
+                        to="/login" 
+                        state={{from:location,isLogin:true}}
                         onClick={()=>setSearchValue("")}
                     >
                         <AccountIcon />
@@ -45,7 +79,7 @@ export default function NavBar({isVisible}) {
 
                     {auth.isAuthenticated && (
                         <div className="account-modal">
-                            <button className="btn btn-link-secondary font-error" onClick={()=>dispatchAuth(logout())}>
+                            <button className="btn btn-link-secondary font-error" onClick={()=>dispatch(logout())}>
                                 Logout
                             </button>
                         </div>
@@ -54,7 +88,7 @@ export default function NavBar({isVisible}) {
                 <button
                     id="toggle-theme"
                     className="btn btn-link-secondary justify-content-start font-medium  font-color-gray"
-                    onClick={toggle}
+                    onClick={()=>dispatch(toggleTheme())}
                 >
                     {theme === "light" ? <DarkModeIcon />:<LightModeIcon/>}
                 </button>

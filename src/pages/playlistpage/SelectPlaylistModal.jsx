@@ -1,9 +1,13 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { usePlaylist } from "../../context";
+import { addToPlaylist, removeFromPlaylist, setCreatePlaylistModal, setShowPlaylistModal } from "../../feature";
 import "./playlistpage.css";
 
 export default function SelectPlaylistModal({ video }) {
-    const { playlist, setShowPlaylistModal, setCreatePlaylistModal,addToPlaylist,removeFromPlaylist } = usePlaylist();
+    // const { playlist, setShowPlaylistModal, setCreatePlaylistModal,addToPlaylist,removeFromPlaylist } = usePlaylist();
+    const {playlist,createPlaylistModal} = useSelector(state=>state.playlist);
+    const dispatch = useDispatch()
 
     const checkVideoPresent = (playlistObject,currVideo) => {
         return playlistObject.videos.find((vid) => vid._id === currVideo._id)?true:false
@@ -11,9 +15,11 @@ export default function SelectPlaylistModal({ video }) {
 
     const togglePlaylistHandler = (playlistObject,currVideo)=>{
         if(checkVideoPresent(playlistObject,currVideo)){
-            removeFromPlaylist(playlistObject._id,currVideo)
+            // removeFromPlaylist(playlistObject._id,currVideo)
+            dispatch(removeFromPlaylist({playlistId:playlistObject._id,video:currVideo}))
         }else{
-            addToPlaylist(playlistObject._id,currVideo)
+            // addToPlaylist(playlistObject._id,currVideo)
+            dispatch(addToPlaylist({playlistId:playlistObject._id,video:currVideo}))
         }
     }
 
@@ -22,7 +28,8 @@ export default function SelectPlaylistModal({ video }) {
             <div className="playlist-modal-card">
                 <button
                     className="playlist-modal-close"
-                    onClick={() => setShowPlaylistModal(false)}
+                    // onClick={() => setShowPlaylistModal(false)}
+                    onClick={() => dispatch(setShowPlaylistModal({value:false}))}
                 >
                     <span className="material-icons">close</span>
                 </button>
@@ -53,7 +60,8 @@ export default function SelectPlaylistModal({ video }) {
                 <button
                     className="btn btn-primary"
                     onClick={() => {
-                        setCreatePlaylistModal((s) => !s);
+                        // setCreatePlaylistModal((s) => !s);
+                        dispatch(setCreatePlaylistModal({value:!createPlaylistModal}));
                     }}
                 >
                     Create Playlist

@@ -23,23 +23,23 @@ makeServer();
 root.render(
     <React.StrictMode> 
         <Provider store={store}>
-        <ThemeProvider>
+        {/* <ThemeProvider> */}
             {/* <AuthProvider> */}
                 <Router>
-                    <VideoProvider>
-                        <LikeProvider>
-                            <WatchLaterProvider>
-                                <PlaylistProvider>
-                                    <HistoryProvider>
+                    {/* <VideoProvider> */}
+                        {/* <LikeProvider> */}
+                            {/* <WatchLaterProvider> */}
+                                {/* <PlaylistProvider> */}
+                                    {/* <HistoryProvider> */}
                                         <App />
-                                    </HistoryProvider>
-                                </PlaylistProvider>
-                            </WatchLaterProvider>
-                        </LikeProvider>
-                    </VideoProvider>
+                                    {/* </HistoryProvider> */}
+                                {/* </PlaylistProvider> */}
+                            {/* </WatchLaterProvider> */}
+                        {/* </LikeProvider> */}
+                    {/* </VideoProvider> */}
                 </Router>
             {/* </AuthProvider> */}
-        </ThemeProvider>
+        {/* </ThemeProvider> */}
         </Provider>
     </React.StrictMode> 
 );

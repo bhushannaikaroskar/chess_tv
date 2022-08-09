@@ -12,7 +12,7 @@ export default function WatchLaterProvider({ children }) {
     const [watchLaterVideos,setWatchLaterVideos] = useState([]);
     // const { auth} = useAuth();
     const auth = useSelector((state)=> state.auth)
-    const {theme} = useTheme();
+    const {theme} = useSelector(state => state.theme);
 
     const addWatchLaterVideo = (video,setLoader=()=>{}) => {
         axios.request({

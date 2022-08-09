@@ -12,10 +12,9 @@ export default function HistoryProvider({ children }) {
     // const { auth } = useAuth();
     const auth = useSelector((state)=> state.auth)
 
-    const {theme} = useTheme()
+    const {theme} = useSelector(state => state.theme)
 
     const getHistory = () => {
-        console.log(auth)
         if (!auth.isAuthenticated) {
             errorToast("User is not Authenticated",theme)
             return;
