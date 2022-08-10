@@ -49,6 +49,27 @@ export const signup = createAsyncThunk("auth/signup",async (user, thunkAPI)=>{
     }
 })
 
+export const verifyUser = createAsyncThunk(
+    "auth/verifyUser",
+    async (_, thunkAPI) => {
+        console.log("verify callaed")
+      try {
+        const res = await axios.request({
+          method: "post",
+          url: "/api/auth/verify",
+          headers: {
+            accept: "*/*",
+          },
+          data: { encodedToken: localStorage.getItem("chess-token") },
+        });
+        return res.data;
+      } catch (error) {
+        console.log("rejected",error)
+        return thunkAPI.rejectWithValue(error.response);
+      }
+    }
+  );
+
 const authSlice = createSlice({
     name:"auth",
     initialState:initialAuthState,
@@ -57,7 +78,9 @@ const authSlice = createSlice({
             console.log("logout called")
             state.authToken = "";
             state.isAuthenticated = false;
-            state.user = {...initialAuthState.user}
+            state.user = {...initialAuthState.user};
+            state.error = ""
+            localStorage.removeItem("chess-token")
         }
     },
     extraReducers:{
@@ -67,6 +90,8 @@ const authSlice = createSlice({
             state.isAuthenticated = true;
             state.authToken = action.payload.encodedToken;
             state.user = { email, firstName, lastName, _id };
+            // state.error = "";
+            localStorage.setItem("chess-token",action.payload.encodedToken)
         },
         [login.rejected]:(state,action)=>{
             console.log(action)
@@ -76,11 +101,21 @@ const authSlice = createSlice({
             state.isAuthenticated = true;
             state.authToken = action.payload.encodedToken;
             state.user = action.payload.foundUser;
-            console.log(action.payload)
+            state.error = "";
+            console.log(action.payload);
+            localStorage.setItem("chess-token",action.payload.encodedToken)
         },
         [signup.rejected]:(state,action)=>{
             console.log(action)
             state.error = action.payload.errors[0] 
+        },
+        [verifyUser.fulfilled]:(state,action)=>{
+            console.log("verified")
+            const {firstName,lastName,email,_id} = action.payload.user;
+            state.isAuthenticated = true;
+            state.authToken = localStorage.getItem("chess-token")
+            state.user = { email, firstName, lastName, _id };
+            state.error = "";
         },
     }   
 });

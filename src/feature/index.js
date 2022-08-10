@@ -1,4 +1,4 @@
-export { login,signup,logout } from "./auth/authSlice";
+export { login,signup,logout,verifyUser } from "./auth/authSlice";
 export { toggleLike, getLikes, resetLikes } from "./like/likeSlice";
 export { toggleTheme } from "./theme/themeSlice";
 export { resetHistory,addToHistory,removeFromHistory,clearHistory,getHistory} from "./history/historySlice"

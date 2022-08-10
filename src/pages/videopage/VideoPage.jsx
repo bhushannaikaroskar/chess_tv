@@ -49,6 +49,7 @@ export default function VideoPage() {
         if(auth.isAuthenticated){
             // setShowPlaylistModal(s=>!s);
             dispatch(setShowPlaylistModal({value:!showPlaylistModal}));
+            dispatch(setSelectedVideo({video:currentVideo}));
         }else{
             navigate("/login",{state:{from:location}})
         }

@@ -21,7 +21,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 makeServer();
 
 root.render(
-    <React.StrictMode> 
+    // <React.StrictMode> 
         <Provider store={store}>
         {/* <ThemeProvider> */}
             {/* <AuthProvider> */}
@@ -41,5 +41,5 @@ root.render(
             {/* </AuthProvider> */}
         {/* </ThemeProvider> */}
         </Provider>
-    </React.StrictMode> 
+    // </React.StrictMode> 
 );

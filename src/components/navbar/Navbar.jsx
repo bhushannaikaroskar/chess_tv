@@ -6,9 +6,8 @@ import "./navbar.css"
 import {AccountIcon, DarkModeIcon, LightModeIcon} from "../icons/icons"
 import { useAuth, useTheme, useVideos } from "../../context";
 import { useSelector,useDispatch } from "react-redux";
-import { logout } from "../../feature/auth/authSlice";
 import { useEffect } from "react";
-import { fetchVideos, getHistory, getLikes, getPlaylists, getWatchLaterVideo, resetFilters, resetHistory, resetLikes, resetPlaylist, resetWatchLater, setModalId, setSearchValue, toggleTheme } from "../../feature";
+import { fetchVideos, getHistory, getLikes, getPlaylists, getWatchLaterVideo, logout, resetFilters, resetHistory, resetLikes, resetPlaylist, resetWatchLater, setModalId, setSearchValue, toggleTheme, verifyUser } from "../../feature";
 
 
 export default function NavBar({isVisible}) {
@@ -36,6 +35,7 @@ export default function NavBar({isVisible}) {
             dispatch(resetPlaylist());
             dispatch(resetWatchLater());
         }
+        // console.log("auth chnaged",auth)
     },[auth])
 
     useEffect(()=>{
@@ -48,6 +48,9 @@ export default function NavBar({isVisible}) {
 
     useEffect(()=>{
         dispatch(fetchVideos())
+        if(localStorage.getItem("chess-token")){
+            dispatch(verifyUser())
+        }
     },[])
  
     useEffect(()=>{
