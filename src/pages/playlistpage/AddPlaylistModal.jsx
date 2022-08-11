@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { usePlaylist } from "../../context";
-import { addPlaylist, setCreatePlaylistModal, setShowPlaylistModal } from "../../feature";
+import { addPlaylist, setCreatePlaylistModal } from "../../feature";
 import "./playlistpage.css";
 
 export default function AddPlaylistModal() {
-    // const {  setCreatePlaylistModal, addPlaylist } =
-    //     usePlaylist();
     const {createPlaylistModal} = useSelector(state => state.playlist)
     const dispatch = useDispatch();
     const [playlistObject, setPlaylistObject] = useState({
@@ -35,15 +32,10 @@ export default function AddPlaylistModal() {
             setPlaylistObject((s) => ({ ...s, descriptionError: false }));
         }
 
-        // h(addPlaylist({
-        //     title:playlistObject.title.trim(),
-        //     description:playlistObject.description.trim()}
-        // ));
         dispatch(addPlaylist({
             title:playlistObject.title.trim(),
             description:playlistObject.description.trim()}
         ));
-        // setCreatePlaylistModal((s) => !s);
         dispatch(setCreatePlaylistModal({value:!createPlaylistModal}))
     };
 
@@ -58,7 +50,7 @@ export default function AddPlaylistModal() {
                 </button>
                 <h2 className="p-y-1">New Playlist</h2>
                 <div className="input-wrapper">
-                    <label for="title" className="input-label">
+                    <label htmlFor="title" className="input-label">
                         Title:
                     </label>
                     <input
@@ -70,7 +62,7 @@ export default function AddPlaylistModal() {
                     {playlistObject.titleError && <span class="input-message">Enter title of playlist</span>}
                 </div>
                 <div className="input-wrapper p-y-1">
-                    <label for="description" className="input-label">
+                    <label htmlFor="description" className="input-label">
                         Description:
                     </label>
                     <input

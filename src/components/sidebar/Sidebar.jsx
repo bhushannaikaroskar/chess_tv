@@ -51,7 +51,7 @@ export default function Sidebar() {
         {navigations.map((nav)=>{
             const isActive = location.pathname === nav.pathname || (location.pathname.includes("/video") && nav.pathname === "/explore")?"btn-nav-active":""
             return (
-                <button className={`btn-nav ${isActive}`} onClick={()=>{navigate(nav.pathname)}}>
+                <button key={nav.icon} className={`btn-nav ${isActive}`} onClick={()=>{navigate(nav.pathname)}}>
                     <span className={`material-icons${nav.isOutlined?"-outlined":""}`}>{nav.icon}</span>
                     <div className="btn-nav-text">{nav.name}</div>
                 </button>

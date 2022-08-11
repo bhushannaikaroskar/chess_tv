@@ -1,5 +1,4 @@
 import React from "react";
-import { useVideos } from "../../context";
 import { VideoCard } from "../../components";
 import "./explorepage.css";
 import { useDocumentTitle } from "../../utils";
@@ -8,13 +7,11 @@ import {resetFilters, toggleVideoFilter, videoFilter} from "../../feature"
 
 export default function ExplorePage() {
 
-    // const {videoState,videoFilter,dispatchVideos,searchValue} = useVideos();
     const videoState = useSelector(state =>state.video)
     const {searchValue} = videoState;
     const dispatch = useDispatch();
     useDocumentTitle("Explore")
 
-    // const videoList = videoFilter(videoState);
     const videoList = videoFilter(videoState)
 
     return (

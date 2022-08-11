@@ -1,12 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { VideoCard } from "../../components";
-import { useLikes } from "../../context";
 import { useDocumentTitle } from "../../utils";
 import "./likedvideopage.css";
 
 export default function LikedVideosPage() {
-    // const { likedVideos } = useLikes();
     const {likedVideos} = useSelector((state)=>state.like);
     useDocumentTitle("Liked Videos");
 

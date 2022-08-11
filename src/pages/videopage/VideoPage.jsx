@@ -1,28 +1,19 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { VideoCard } from "../../components";
-import { useAuth, useHistory, useLikes, usePlaylist, useVideos, useWatchLater } from "../../context";
 import {useDispatch,useSelector} from "react-redux";
 import { getSubscribersString, getViewString, useDocumentTitle } from "../../utils";
-import AddPlaylistModal from "../playlistpage/AddPlaylistModal";
-import SelectPlaylistModal from "../playlistpage/SelectPlaylistModal";
 import "./videopage.css";
 import { addToHistory, removeFromHistory, setSelectedVideo, setShowPlaylistModal, toggleLike, toggleWatchLater } from "../../feature";
 
 export default function VideoPage() {
     const { videoId } = useParams();
-    // const { videoState } = useVideos();
     const videoState = useSelector(state => state.video)
-    // const { likedVideos, toggleLike } = useLikes()
     const dispatch = useDispatch();
     const {likedVideos} = useSelector(state => state.like) 
-    // const { auth } = useAuth();
     const auth = useSelector((state)=>state.auth)
-    // const { history, addToHistory, removeFromHistory } = useHistory();
     const {history} = useSelector(state => state.history);
-    // const {watchLaterVideos,toggleWatchLater } = useWatchLater()
     const {watchLaterVideos} = useSelector(state => state.watchlater)
-    // const { setSelectedVideo,setShowPlaylistModal} = usePlaylist()
     const {showPlaylistModal} = useSelector(state => state.playlist)
     const navigate = useNavigate();
     const location = useLocation();
@@ -47,7 +38,6 @@ export default function VideoPage() {
 
     const playlistHandler = ()=>{
         if(auth.isAuthenticated){
-            // setShowPlaylistModal(s=>!s);
             dispatch(setShowPlaylistModal({value:!showPlaylistModal}));
             dispatch(setSelectedVideo({video:currentVideo}));
         }else{
@@ -57,7 +47,6 @@ export default function VideoPage() {
 
     useEffect(()=>{
         handleHistory()
-        // setSelectedVideo(currentVideo)
         dispatch(setSelectedVideo({video:currentVideo}))
     },[videoId])
 
@@ -138,9 +127,6 @@ export default function VideoPage() {
             ) : (
                 "Loading Video"
             )}
-            
-            {/* {showPlaylistModal && <SelectPlaylistModal video={currentVideo}/>}
-            {createPlaylistModal && <AddPlaylistModal/>} */}
         </main>
     );
 }

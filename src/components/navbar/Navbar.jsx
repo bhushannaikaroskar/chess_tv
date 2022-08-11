@@ -4,21 +4,16 @@ import SearchBar from "./Searchbar";
 import Logo from "./logo";
 import "./navbar.css"
 import {AccountIcon, DarkModeIcon, LightModeIcon} from "../icons/icons"
-import { useAuth, useTheme, useVideos } from "../../context";
 import { useSelector,useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchVideos, getHistory, getLikes, getPlaylists, getWatchLaterVideo, logout, resetFilters, resetHistory, resetLikes, resetPlaylist, resetWatchLater, setModalId, setSearchValue, toggleTheme, verifyUser } from "../../feature";
 
 
 export default function NavBar({isVisible}) {
-
-    // const { setSearchValue} = useVideos();
-    // const {auth,logout} = useAuth();
     
     const auth = useSelector((state)=> state.auth)
     const dispatch = useDispatch()
     const location = useLocation();
-    // const {theme,toggle} = useTheme();
     const {theme} = useSelector((state)=>state.theme)
 
     useEffect(()=>{
@@ -35,7 +30,6 @@ export default function NavBar({isVisible}) {
             dispatch(resetPlaylist());
             dispatch(resetWatchLater());
         }
-        // console.log("auth chnaged",auth)
     },[auth])
 
     useEffect(()=>{

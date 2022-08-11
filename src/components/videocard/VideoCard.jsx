@@ -1,6 +1,5 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth, useHistory, usePlaylist, useVideos, useWatchLater } from "../../context";
 import { useDispatch, useSelector } from "react-redux";
 import "./videocard.css";
 import { getViewString,getDateDifferenceString } from "../../utils";
@@ -9,17 +8,12 @@ import { removeFromHistory, removeFromPlaylist, setSelectedVideo, setShowPlaylis
 export default function VideoCard({ video, isHistoryPage = false, playlistId = false }) {
     const { _id, title, videoThumbnail, channelName, channelThumbNail, date, views } =
         video;
-    // const { modalId, toggleModal } = useVideos();
     const {modalId} = useSelector(state => state.video)
-    // const { watchLaterVideos, toggleWatchLater } = useWatchLater();
     const {watchLaterVideos} = useSelector(state => state.watchlater)
-    // const { removeFromHistory } = useHistory();
-    // const { removeFromPlaylist, setShowPlaylistModal,setSelectedVideo} = usePlaylist()
     const {showPlaylistModal} = useSelector(state=>state.playlist)
     const navigate = useNavigate();
-    const location = useLocation()
-    // const {auth} = useAuth()
-    const auth = useSelector((state)=> state.auth)
+    const location = useLocation();
+    const auth = useSelector((state)=> state.auth);
     const dispatch = useDispatch();
 
     const isWatchLater = watchLaterVideos.find((vid) => vid._id === video._id);
@@ -69,38 +63,34 @@ export default function VideoCard({ video, isHistoryPage = false, playlistId = f
                 </div>
                 <button
                     className="grand-video-card-btn"
-                    // onClick={() => toggleModal(_id)}
                     onClick={() => dispatch(toggleModal({videoId:_id}))}
                 >
                     <span className="material-icons ">more_vert</span>
                     {modalId === _id && (
                         <div className="grand-video-options-modal">
-                            {playlistId ? <button className="grand-video-options-button" onClick={()=>{
+                            {playlistId ? (<button className="grand-video-options-button" onClick={()=>{
                                 if(!auth.isAuthenticated){
                                     navigate("/login")
                                     return;
                                 }
-                                // removeFromPlaylist(playlistId,video)
                                 dispatch(removeFromPlaylist({playlistId,video}))
                                 }}>
                                 <span className="material-icons fw-400">
                                     playlist_play
                                 </span>
                                 Remove from Playlist
-                            </button>:<button className="grand-video-options-button" onClick={()=>{
+                            </button>):(<button className="grand-video-options-button" onClick={()=>{
                                 if(!auth.isAuthenticated){
                                     navigate("/login",{state:{from:location}})
                                     return;
                                 }
-                                // setSelectedVideo(video);
                                 dispatch(setSelectedVideo({video}));
-                                // setShowPlaylistModal(s=>!s)}}>
                                 dispatch(setShowPlaylistModal({value:!showPlaylistModal}))}}>
                                 <span className="material-icons fw-400">
                                     playlist_play
                                 </span>
                                 Add to Playlist
-                            </button>}
+                            </button>)}
                             <button
                                 className="grand-video-options-button"
                                 onClick={() => {
@@ -108,7 +98,6 @@ export default function VideoCard({ video, isHistoryPage = false, playlistId = f
                                         navigate("/login",{state:{from:location}})
                                         return
                                     }
-                                    // toggleWatchLater(video)
                                     dispatch(toggleWatchLater({video}))
 
                                 }}

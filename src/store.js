@@ -7,8 +7,6 @@ import themeReducer from "./feature/theme/themeSlice";
 import videoReducer from "./feature/video/videoSlice";
 import watchlaterReducer from "./feature/watchlater/watchlaterSlice";
 
-console.log(authReducer)
-
 export const store = configureStore({
     reducer: {
         auth: authReducer,

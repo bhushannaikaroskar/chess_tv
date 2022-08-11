@@ -26,7 +26,6 @@ const addLike = async (video,auth,theme,setLoader=()=>{}) => {
             throw new Error(res.message)
         }
         successToast("Liked video",theme) 
-        // setLikedVideos([...res.data.likes])
         setLoader(false)
         return res.data
     } catch (err) {
@@ -55,7 +54,6 @@ export const getLikes = createAsyncThunk("like/getLikes",async (_,thunkAPI) => {
         return res.data
     } catch (err) {
         errorToast("Error while fetching Liked Videos",theme)
-        console.log(err)
         return thunkAPI.rejectWithValue(err.response);
     }
 })
@@ -100,7 +98,6 @@ export const toggleLike = createAsyncThunk("like/toggleLike",async ({video,setLo
             return data
         }
     }catch(err){
-        console.log(err)
         return thunkAPI.rejectWithValue(err.response.data)
     }
 })
@@ -115,12 +112,9 @@ const likeSlice = createSlice({
     },
     extraReducers:{
         [getLikes.fulfilled]:(state,action)=>{
-            console.log(action)
             state.likedVideos = [...action.payload.likes]
         },
         [getLikes.rejected]:(state,action)=>{
-            console.log("get likes rejected",action.payload)
-            // state.likedVideos = [...action.payload.likes]
         },
         [toggleLike.fulfilled] : (state,action)=>{
             state.likedVideos = action.payload.likes

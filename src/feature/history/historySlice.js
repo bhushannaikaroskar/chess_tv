@@ -28,13 +28,6 @@ export const getHistory = createAsyncThunk(
             errorToast("Some error occured while fetching history", theme);
             return thunkAPI.rejectWithValue("error");
         }
-
-        // .then((res) => {
-        //     setHistory([...res.data.history]);
-        // })
-        // .catch((err) => {
-        //     errorToast("Some error occured while fetching history",theme)
-        // });
     }
 );
 
@@ -93,7 +86,6 @@ export const clearHistory = createAsyncThunk(
     async (_, thunkAPI) => {
         const auth = thunkAPI.getState().auth;
         const { theme } = thunkAPI.getState().theme;
-        console.log("clearhistory clleed")
         if (!auth.isAuthenticated) {
             errorToast("User is not Authenticated", theme);
             throw new Error("login first");
@@ -106,11 +98,9 @@ export const clearHistory = createAsyncThunk(
                 data: {},
             });
             successToast("Cleared history",theme)
-            console.log("clear history called")
             return res.data;
         } catch (error) {
             errorToast("Unable to clear history",theme)
-            console.log("clear history rejected")
             return thunkAPI.rejectWithValue("error");
         }
     }

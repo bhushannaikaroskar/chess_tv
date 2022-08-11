@@ -1,12 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { VideoCard } from "../../components";
-import { useWatchLater } from "../../context";
 import { useDocumentTitle } from "../../utils";
 import "./watchlaterpage.css";
 
 export default function WatchLaterPage() {
-    // const { watchLaterVideos } = useWatchLater();
     const {watchLaterVideos} = useSelector(state => state.watchlater);
     useDocumentTitle("Watch Later");
 

@@ -7,7 +7,7 @@ const initialState = {
     playlist: [],
     createPlaylistModal: false,
     showPlaylistModal: false,
-    selectedVideo: "",
+    selectedVideo: null,
 };
 
 
@@ -158,15 +158,16 @@ const playlistSlice = createSlice({
             state.playlist = []
         },
         setCreatePlaylistModal:(state,action)=>{
-            console.log(action)
             state.createPlaylistModal = action.payload.value;
         },
         setSelectedVideo:(state,action)=>{
             state.selectedVideo = action.payload.video;
         },
         setShowPlaylistModal:(state,action)=>{
-            console.log(action)
             state.showPlaylistModal = action.payload.value;
+            if(!action.payload.value){
+                state.selectedVideo = null;
+            }
         }
     },
     extraReducers: {

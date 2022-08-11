@@ -1,13 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { VideoCard } from "../../components";
-import { useHistory } from "../../context";
 import { clearHistory } from "../../feature";
 import { useDocumentTitle } from "../../utils";
 import "./historypage.css";
 
 export default function HistoryPage() {
-    // const { history, clearHistory } = useHistory();
     const {history} = useSelector((state)=>state.history);
     const dispatch = useDispatch()
     useDocumentTitle("History")

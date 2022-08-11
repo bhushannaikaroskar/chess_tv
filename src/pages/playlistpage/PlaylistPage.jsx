@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { VideoCard } from "../../components";
-import { usePlaylist } from "../../context";
 import { setCreatePlaylistModal,removePlaylist } from "../../feature";
 import { useDocumentTitle } from "../../utils";
 import AddPlaylistModal from "./AddPlaylistModal";
@@ -11,17 +10,8 @@ const styleObj = {
 };
 
 export default function PlaylistPage() {
-    // const {
-        // playlist,
-        // createPlaylistModal,
-        // setCreatePlaylistModal,
-        // removePlaylist,
-    // } = usePlaylist();
-    const {playlist,
-        createPlaylistModal,
-        // setCreatePlaylistModal,
-        } = useSelector(state => state.playlist);
-        const dispatch = useDispatch();
+    const {playlist, createPlaylistModal} = useSelector(state => state.playlist);
+    const dispatch = useDispatch();
     const [selectedPlaylist, setSelectedPlaylist] = useState(
         playlist.length > 0 ? playlist[0].title : ""
     );
@@ -59,7 +49,6 @@ export default function PlaylistPage() {
                     <button
                         className="btn btn-primary"
                         onClick={() => {
-                            // setCreatePlaylistModal((s) => !s);
                             dispatch(setCreatePlaylistModal({value:!createPlaylistModal}))
                         }}
                     >

@@ -1,6 +1,5 @@
 import React, { useReducer } from "react";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../../context";
 import { useDocumentTitle } from "../../utils";
 import {useDispatch,useSelector} from "react-redux";
 import "./authpage.css"
@@ -45,8 +44,6 @@ export default function LoginPage() {
     const {email,emailError,password,passwordError,showPassword} = state;
 
     useDocumentTitle("Login");
-
-    // const { error, loginUser } = useAuth();
     const dispatchAuth = useDispatch()
     const {error} = useSelector((state)=>state.auth)
 

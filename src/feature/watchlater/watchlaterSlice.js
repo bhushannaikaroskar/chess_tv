@@ -21,7 +21,6 @@ const addWatchLaterVideo = async (video,auth,theme,setLoader=()=>{}) => {
                 video
             }
         })
-        console.log(res);
         if(res.status === 409 ){
             throw new Error(res.message)
         }
@@ -70,8 +69,6 @@ export const getWatchLaterVideo = createAsyncThunk("watchlater/getWatchLater",as
         throw new Error("login first");
     }
 
-    console.log("get watch later videos ")
-
     try {
         const res = await axios.request({
             method: "get",
@@ -92,14 +89,12 @@ export const toggleWatchLater = createAsyncThunk("watchlater/toggleWatchLater",a
     const theme = thunkAPI.getState().theme.theme;
     const watchLaterVideos = thunkAPI.getState().watchlater.watchLaterVideos;
 
-    console.log("toggle callaed")
     try {
         if(watchLaterVideos.find(vid => vid._id === video._id)){
             const data = await removeWatchLaterVideo(video,auth,theme,setLoader);
             return data
         }else{
             const data = await addWatchLaterVideo(video,auth,theme,setLoader);
-            console.log(data)
             return data
         }
     } catch (err) {
@@ -122,12 +117,9 @@ const watchlaterSlice = createSlice({
             state.watchLaterVideos = action.payload.watchlater
         },
         [toggleWatchLater.fulfilled]:(state,action)=>{
-            console.log(action)
             state.watchLaterVideos = action.payload.watchlater
         },
         [toggleWatchLater.rejected]:(state,action)=>{
-            console.log(action);
-            console.log("toggle watch later rejected")
         }
     },
 })
